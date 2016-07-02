@@ -2,7 +2,6 @@ package hu.gabornovak.movieapp.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +34,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Movie movie = movies.get(position);
+        final Movie movie = movies.get(position);
         holder.movie = movie;
 
         holder.title.setText(movie.getTitle());
@@ -46,10 +45,13 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
                                            @Override
                                            public void onClick(View v) {
                                                Intent intent = new Intent(activity, MovieDetailActivity.class);
-// Pass data object in the bundle and populate details activity.
-                                               ActivityOptionsCompat options = ActivityOptionsCompat.
+                                               MovieDetailActivity.setExtras(intent, movie);
+
+                                               //TODO Fix shared transition. It has issues with Fresco (maybe replace it to something else).
+/*                                               ActivityOptionsCompat options = ActivityOptionsCompat.
                                                        makeSceneTransitionAnimation(activity, holder.poster, "poster");
-                                               activity.startActivity(intent, options.toBundle());
+                                               activity.startActivity(intent, options.toBundle());*/
+                                               activity.startActivity(intent);
                                            }
                                        }
         );

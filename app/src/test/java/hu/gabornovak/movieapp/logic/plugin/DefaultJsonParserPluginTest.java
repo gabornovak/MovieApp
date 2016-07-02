@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import hu.gabornovak.movieapp.logic.entity.Genre;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 
 import static junit.framework.Assert.assertEquals;
@@ -40,6 +41,36 @@ public class DefaultJsonParserPluginTest {
             "]" +
             "}";
 
+
+    private static final String VALID_GENRES_JSON = "{\n" +
+            "  \"genres\": [\n" +
+            "    {\n" +
+            "      \"id\": 28,\n" +
+            "      \"name\": \"Action\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"id\": 12,\n" +
+            "      \"name\": \"Adventure\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"id\": 16,\n" +
+            "      \"name\": \"Animation\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"id\": 35,\n" +
+            "      \"name\": \"Comedy\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"id\": 80,\n" +
+            "      \"name\": \"Crime\"\n" +
+            "    },\n" +
+            "    {\n" +
+            "      \"id\": 99,\n" +
+            "      \"name\": \"Documentary\"\n" +
+            "    }" +
+            "]" +
+            "}";
+
     @Test
     public void parseValidMovie() throws Exception {
         DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
@@ -68,5 +99,33 @@ public class DefaultJsonParserPluginTest {
     public void parseNull() throws Exception {
         DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
         assertNull(plugin.parseMovies(null));
+    }
+
+    @Test
+    public void parseValidGenre() throws Exception {
+        DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
+        assertNotNull(plugin.parseGenres(VALID_GENRES_JSON));
+    }
+
+    @Test
+    public void parseValiGenreValidFields() throws Exception {
+        DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
+        List<Genre> genres = plugin.parseGenres(VALID_GENRES_JSON);
+        assertTrue(genres.size() == 6);
+        Genre genre = genres.get(0);
+        assertEquals(genre.getId(), 28);
+        assertEquals(genre.getName(), "Action");
+    }
+
+    @Test
+    public void parseInvalidGenre() throws Exception {
+        DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
+        assertNull(plugin.parseGenres("It is an invalid json"));
+    }
+
+    @Test
+    public void parseNullGenre() throws Exception {
+        DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
+        assertNull(plugin.parseGenres(null));
     }
 }

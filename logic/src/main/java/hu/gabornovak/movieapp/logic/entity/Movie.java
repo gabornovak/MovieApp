@@ -1,5 +1,8 @@
 package hu.gabornovak.movieapp.logic.entity;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Simple data class for a movie
  *
@@ -26,12 +29,14 @@ package hu.gabornovak.movieapp.logic.entity;
        }
  *
  */
-public class Movie {
+public class Movie implements Serializable {
     private int id;
     private String title;
     private String overview;
     private String poster_path;
     private float vote_average;
+    private String release_date;
+    private List<Integer> genre_ids;
 
     public int getId() {
         return id;
@@ -80,5 +85,21 @@ public class Movie {
                 ", title='" + title + '\'' +
                 ", overview='" + overview + '\'' +
                 '}';
+    }
+
+    public String getRelease_date() {
+        return release_date;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+
+    public List<Integer> getGenre_ids() {
+        return genre_ids;
+    }
+
+    public void setGenre_ids(List<Integer> genre_ids) {
+        this.genre_ids = genre_ids;
     }
 }
