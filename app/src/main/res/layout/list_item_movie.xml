@@ -13,8 +13,9 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/poster"
+            android:transitionName="poster"
             android:layout_width="@dimen/movie_poster_width"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/movie_poster_height"
             fresco:placeholderImage="@mipmap/ic_launcher"/>
 
         <TextView

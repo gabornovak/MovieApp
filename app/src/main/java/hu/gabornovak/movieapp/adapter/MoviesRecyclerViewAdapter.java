@@ -1,5 +1,8 @@
 package hu.gabornovak.movieapp.adapter;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +14,16 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import hu.gabornovak.movieapp.R;
+import hu.gabornovak.movieapp.activity.MovieDetailActivity;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 
 public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder> {
+    private Activity activity;
     private List<Movie> movies;
 
-    public MoviesRecyclerViewAdapter(List<Movie> movies) {
+    public MoviesRecyclerViewAdapter(Activity activity, List<Movie> movies) {
+        this.activity = activity;
         this.movies = movies;
     }
 
@@ -39,6 +45,11 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
         holder.view.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View v) {
+                                               Intent intent = new Intent(activity, MovieDetailActivity.class);
+// Pass data object in the bundle and populate details activity.
+                                               ActivityOptionsCompat options = ActivityOptionsCompat.
+                                                       makeSceneTransitionAnimation(activity, holder.poster, "poster");
+                                               activity.startActivity(intent, options.toBundle());
                                            }
                                        }
         );
