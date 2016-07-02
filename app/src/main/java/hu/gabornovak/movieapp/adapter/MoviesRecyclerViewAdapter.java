@@ -11,6 +11,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import hu.gabornovak.movieapp.R;
+import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 
 public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder> {
@@ -28,11 +29,12 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.movie = movies.get(position);
+        Movie movie = movies.get(position);
+        holder.movie = movie;
 
-        holder.title.setText(movies.get(position).getTitle());
-        holder.overview.setText(movies.get(position).getOverview());
-        //holder.poster.setImageURI(Logic.getInstance().getPluginFactory().getRestPlugin());
+        holder.title.setText(movie.getTitle());
+        holder.overview.setText(movie.getOverview());
+        holder.poster.setImageURI(Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMoviePosterUrl(movie));
 
         holder.view.setOnClickListener(new View.OnClickListener() {
                                            @Override

@@ -1,6 +1,7 @@
 package hu.gabornovak.movieapp.logic;
 
 
+import hu.gabornovak.movieapp.logic.plugin.ImagePathResolverPlugin;
 import hu.gabornovak.movieapp.logic.plugin.JsonParserPlugin;
 import hu.gabornovak.movieapp.logic.plugin.PreferenceStorePlugin;
 import hu.gabornovak.movieapp.logic.plugin.MovieDbRestPlugin;
@@ -29,6 +30,13 @@ public abstract class AbstractPluginFactory implements PluginFactory {
         }
     };
 
+    private LazyInstance<ImagePathResolverPlugin> imagePathResolverPlugin = new LazyInstance<ImagePathResolverPlugin>() {
+        @Override
+        protected ImagePathResolverPlugin createInstance() {
+            return createImagePathResolverPlugin();
+        }
+    };
+
     //endregion
 
     @Override
@@ -50,4 +58,12 @@ public abstract class AbstractPluginFactory implements PluginFactory {
     }
 
     protected abstract JsonParserPlugin createJsonParserPlugin();
+
+    @Override
+    public ImagePathResolverPlugin getImagePathResolverPlugin() {
+        return imagePathResolverPlugin.getInstance();
+    }
+
+    protected abstract ImagePathResolverPlugin createImagePathResolverPlugin();
+
 }
