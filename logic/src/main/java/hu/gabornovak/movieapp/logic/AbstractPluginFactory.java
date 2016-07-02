@@ -3,14 +3,14 @@ package hu.gabornovak.movieapp.logic;
 
 import hu.gabornovak.movieapp.logic.plugin.JsonParserPlugin;
 import hu.gabornovak.movieapp.logic.plugin.PreferenceStorePlugin;
-import hu.gabornovak.movieapp.logic.plugin.RestPlugin;
+import hu.gabornovak.movieapp.logic.plugin.MovieDbRestPlugin;
 
 public abstract class AbstractPluginFactory implements PluginFactory {
 
     //region Instances
-    private LazyInstance<RestPlugin> restPlugin = new LazyInstance<RestPlugin>() {
+    private LazyInstance<MovieDbRestPlugin> restPlugin = new LazyInstance<MovieDbRestPlugin>() {
         @Override
-        protected RestPlugin createInstance() {
+        protected MovieDbRestPlugin createInstance() {
             return createRestPlugin();
         }
     };
@@ -32,11 +32,11 @@ public abstract class AbstractPluginFactory implements PluginFactory {
     //endregion
 
     @Override
-    public RestPlugin getRestPlugin() {
+    public MovieDbRestPlugin getRestPlugin() {
         return restPlugin.getInstance();
     }
 
-    protected abstract RestPlugin createRestPlugin();
+    protected abstract MovieDbRestPlugin createRestPlugin();
 
     @Override
     public PreferenceStorePlugin getPreferenceStorePlugin() {

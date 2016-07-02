@@ -3,10 +3,10 @@ package hu.gabornovak.movieapp.logic;
 
 import hu.gabornovak.movieapp.logic.plugin.JsonParserPlugin;
 import hu.gabornovak.movieapp.logic.plugin.PreferenceStorePlugin;
-import hu.gabornovak.movieapp.logic.plugin.RestPlugin;
+import hu.gabornovak.movieapp.logic.plugin.MovieDbRestPlugin;
 
 public interface PluginFactory {
-    RestPlugin getRestPlugin();
+    MovieDbRestPlugin getRestPlugin();
 
     PreferenceStorePlugin getPreferenceStorePlugin();
 
