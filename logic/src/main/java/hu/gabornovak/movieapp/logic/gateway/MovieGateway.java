@@ -1,17 +1,18 @@
 package hu.gabornovak.movieapp.logic.gateway;
 
 
+import java.util.List;
+
 import hu.gabornovak.movieapp.logic.entity.Movie;
 
 /**
  * Created by gnovak on 7/2/2016.
  */
 public interface MovieGateway {
-    interface OnMovieLoaded {
-        void onSuccess(Movie movie);
-
+    interface OnMoviesLoaded {
+        void onSuccess(List<Movie> movies);
         void onError(String errorMsg);
     }
 
-    void loadPopularMovies(OnMovieLoaded onMovieLoaded);
+    void loadPopularMovies(OnMoviesLoaded onMoviesLoaded);
 }

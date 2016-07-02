@@ -1,5 +1,7 @@
 package hu.gabornovak.movieapp.logic.interactor;
 
+import java.util.List;
+
 import hu.gabornovak.movieapp.logic.entity.Movie;
 import hu.gabornovak.movieapp.logic.gateway.MovieGateway;
 
@@ -7,8 +9,8 @@ import hu.gabornovak.movieapp.logic.gateway.MovieGateway;
  * Created by gnovak on 7/2/2016.
  */
 public class Movies {
-    public interface OnMovieLoaded {
-        void onMovieLoaded(Movie movie);
+    public interface OnMoviesLoaded {
+        void onMoviesLoaded(List<Movie> movies);
 
         void onError(String errorMsg);
     }
@@ -19,7 +21,17 @@ public class Movies {
         this.movieGateway = movieGateway;
     }
 
-    public void getPopularMovies(final OnMovieLoaded onMovieLoaded) {
-        //TODO fetch from gateway
+    public void getPopularMovies(final OnMoviesLoaded onMoviesLoaded) {
+        movieGateway.loadPopularMovies(new MovieGateway.OnMoviesLoaded() {
+            @Override
+            public void onSuccess(List<Movie> movies) {
+                onMoviesLoaded.onMoviesLoaded(movies);
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+                onMoviesLoaded.onError(errorMsg);
+            }
+        });
     }
 }

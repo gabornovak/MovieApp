@@ -3,9 +3,9 @@ package hu.gabornovak.movieapp.logic.plugin;
 import android.support.annotation.NonNull;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -41,11 +41,8 @@ public class DefaultMovieDbRestPlugin implements MovieDbRestPlugin {
         url.append(VERSION);
         url.append("/");
         if (requestPath != null && !requestPath.isEmpty()) {
-            try {
-                url.append(URLEncoder.encode(requestPath, "utf-8"));
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            //Replace only the spaces, because the other characters are already valid
+            url.append(requestPath.replaceAll(" ", "%20"));
         }
         url.append("?api_key=");
         url.append(API_KEY);
@@ -53,20 +50,23 @@ public class DefaultMovieDbRestPlugin implements MovieDbRestPlugin {
         return url.toString();
     }
 
-    private void callGet(String url, OnComplete onComplete) {
+    private void callGet(String url, final OnComplete onComplete) {
         Request request = new Request.Builder().url(url).build();
-        Response response;
-        try {
-            response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                onComplete.onSuccess(response.body().string());
-            } else {
-                //TODO add proper error management (error codes and messages)
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
                 onComplete.onError();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            onComplete.onError();
-        }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    onComplete.onSuccess(response.body().string());
+                } else {
+                    //TODO add proper error management (error codes and messages)
+                    onComplete.onError();
+                }
+            }
+        });
     }
 }

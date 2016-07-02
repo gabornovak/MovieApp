@@ -17,7 +17,17 @@ public class DefaultMovieGateway implements MovieGateway {
     }
 
     @Override
-    public void loadPopularMovies(OnMovieLoaded onMovieLoaded) {
-        //TODO
+    public void loadPopularMovies(final OnMoviesLoaded onMoviesLoaded) {
+        restPlugin.get("movie/popular", new MovieDbRestPlugin.OnComplete() {
+            @Override
+            public void onSuccess(String data) {
+                onMoviesLoaded.onSuccess(jsonParserPlugin.parseMovies(data));
+            }
+
+            @Override
+            public void onError() {
+                onMoviesLoaded.onError("An error occurred during download...");
+            }
+        });
     }
 }
