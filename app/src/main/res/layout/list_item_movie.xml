@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/movie_poster_height"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:layout_marginLeft="@dimen/card_horizontal_margin"
-    android:layout_marginRight="@dimen/card_horizontal_margin"
-    android:layout_marginTop="@dimen/card_horizontal_margin">
+    android:layout_marginLeft="@dimen/card_margin"
+    android:layout_marginRight="@dimen/card_margin"
+    android:layout_marginTop="@dimen/card_margin">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,29 +13,93 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/poster"
-            android:transitionName="poster"
             android:layout_width="@dimen/movie_poster_width"
             android:layout_height="@dimen/movie_poster_height"
-            fresco:placeholderImage="@mipmap/ic_launcher"/>
+            android:background="@color/poster_placeholder_background"
+            android:transitionName="poster"
+            fresco:placeholderImage="@drawable/ic_poster_placeholder_24dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/poster"
+            android:layout_toRightOf="@+id/poster"
+            android:background="#FFE082" />
+
+        <View
+            android:id="@+id/ratingProgress"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/poster"
+            android:layout_toRightOf="@+id/poster"
+            android:background="#FFC107" />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/poster"
+            android:layout_toRightOf="@+id/poster"
+            android:text="4.5"
+            android:textSize="8sp" />
 
         <TextView
             android:id="@+id/title"
-            android:layout_toRightOf="@id/poster"
-            android:layout_toEndOf="@id/poster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"/>
+            android:layout_toEndOf="@id/poster"
+            android:layout_toRightOf="@id/poster"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:padding="@dimen/list_item_text_padding"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/genres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_toEndOf="@id/poster"
+            android:layout_toRightOf="@id/poster"
+            android:ellipsize="marquee"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/list_item_text_padding"
+            android:paddingStart="@dimen/list_item_text_padding"
+            android:textSize="10sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/releaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/genres"
+            android:layout_toEndOf="@id/poster"
+            android:layout_toRightOf="@id/poster"
+            android:drawableLeft="@drawable/ic_release_date_24dp"
+            android:drawablePadding="4dp"
+            android:paddingLeft="@dimen/list_item_text_padding"
+            android:paddingStart="@dimen/list_item_text_padding"
+            android:paddingTop="@dimen/list_item_text_padding"
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/overview"
-            android:layout_below="@+id/title"
-            android:layout_toRightOf="@id/poster"
-            android:layout_toEndOf="@id/poster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_above="@id/ratingProgress"
+            android:layout_below="@+id/title"
+            android:layout_toEndOf="@id/poster"
+            android:layout_toRightOf="@id/poster"
+            android:ellipsize="end"
+            android:gravity="bottom"
             android:maxLines="4"
-            android:ellipsize="end"/>
+            android:paddingBottom="@dimen/list_item_text_padding"
+            android:paddingLeft="@dimen/list_item_text_padding"
+            android:paddingRight="@dimen/list_item_text_padding"
+            android:textSize="12sp" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

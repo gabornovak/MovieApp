@@ -9,7 +9,7 @@ import hu.gabornovak.movieapp.logic.entity.Movie;
 public class DefaultImagePathResolverPlugin implements ImagePathResolverPlugin {
     private static final String BASE_URL = "http://image.tmdb.org/t/p/";
     //TODO add size as a parameter
-    private static final String SIZE = "w500";
+    private static final String SIZE = "w300";
 
     @Override
     public String getMoviePosterUrl(Movie movie) {
