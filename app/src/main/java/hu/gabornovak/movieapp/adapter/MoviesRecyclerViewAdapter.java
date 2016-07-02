@@ -6,11 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
+import java.util.List;
+
 import hu.gabornovak.movieapp.R;
+import hu.gabornovak.movieapp.logic.entity.Movie;
 
 public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder> {
+    private List<Movie> movies;
 
-    public MoviesRecyclerViewAdapter() {
+    public MoviesRecyclerViewAdapter(List<Movie> movies) {
+        this.movies = movies;
     }
 
     @Override
@@ -21,43 +28,39 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        /*holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.movie = movies.get(position);
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });*/
+        holder.title.setText(movies.get(position).getTitle());
+        holder.overview.setText(movies.get(position).getOverview());
+        //holder.poster.setImageURI(Logic.getInstance().getPluginFactory().getRestPlugin());
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+                                           @Override
+                                           public void onClick(View v) {
+                                           }
+                                       }
+        );
     }
 
     @Override
     public int getItemCount() {
-        //return mValues.size();
-        return 0;
+        return movies.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public Movie movie;
+
+        public final View view;
+        public final SimpleDraweeView poster;
+        public final TextView title;
+        public final TextView overview;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            this.view = view;
+            title = (TextView) view.findViewById(R.id.title);
+            overview = (TextView) view.findViewById(R.id.overview);
+            poster = (SimpleDraweeView) view.findViewById(R.id.poster);
         }
     }
 }
