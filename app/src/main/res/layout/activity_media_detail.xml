@@ -98,8 +98,8 @@
                         android:layout_marginLeft="@dimen/detail_text_margin"
                         android:layout_marginRight="@dimen/detail_text_margin"
                         android:drawableLeft="@drawable/ic_star_20dp"
-                        android:drawableStart="@drawable/ic_star_20dp"
                         android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_star_20dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/colorTextSecondary" />
 
@@ -111,8 +111,8 @@
                         android:layout_marginLeft="@dimen/detail_text_margin"
                         android:layout_marginRight="@dimen/detail_text_margin"
                         android:drawableLeft="@drawable/ic_date_20dp"
-                        android:drawableStart="@drawable/ic_date_20dp"
                         android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_date_20dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/colorTextSecondary" />
 
@@ -124,8 +124,8 @@
                         android:layout_marginLeft="@dimen/detail_text_margin"
                         android:layout_marginRight="@dimen/detail_text_margin"
                         android:drawableLeft="@drawable/ic_time_20dp"
-                        android:drawableStart="@drawable/ic_time_20dp"
                         android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_time_20dp"
                         android:gravity="center_vertical"
                         android:textColor="@color/colorTextSecondary" />
                 </LinearLayout>

@@ -90,7 +90,6 @@ public class MediaDetailActivity extends AppCompatActivity {
         }
     }
 
-
     private void loadDetailsAsync(final Media media) {
         if (media instanceof Movie) {
             Logic.getInstance().getMedia().getMovieDetails(media, new MediaInteractor.OnDetailedMovieLoaded() {

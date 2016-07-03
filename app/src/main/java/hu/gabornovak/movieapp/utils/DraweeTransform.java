@@ -9,7 +9,6 @@ import android.graphics.Rect;
 import android.os.Build;
 import android.transition.Transition;
 import android.transition.TransitionValues;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.drawable.ScalingUtils;
@@ -120,7 +119,6 @@ public class DraweeTransform extends Transition {
             }
 
             transform.setValues(mMatrixValuesInterpolated);
-            Log.d("MATRIX", transform.toString());
             return transform;
         }
     }
