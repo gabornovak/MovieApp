@@ -13,7 +13,7 @@ import android.view.MenuInflater;
 import hu.gabornovak.movieapp.R;
 import hu.gabornovak.movieapp.adapter.MainAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,20 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
+        searchView.setOnQueryTextListener(this);
+
         return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        // User pressed the search button
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        // User changed the text
+        return false;
     }
 }

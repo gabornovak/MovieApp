@@ -15,4 +15,6 @@ public interface MovieGateway {
     }
 
     void loadPopularMovies(OnMoviesLoaded onMoviesLoaded);
+
+    void searchMovies(String searchText, OnMoviesLoaded onMoviesLoaded);
 }

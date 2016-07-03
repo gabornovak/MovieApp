@@ -6,18 +6,22 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import hu.gabornovak.movieapp.R;
+import hu.gabornovak.movieapp.fragment.MoviesSearchResultFragment;
 
-public class SearchableActivity extends AppCompatActivity {
+public class SearchResultActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchable);
+        setContentView(R.layout.activity_search_result);
 
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            //doMySearch(query);
+
+            setTitle("Search \"" + query + "\"");
+
+            getSupportFragmentManager().beginTransaction().add(R.id.container, MoviesSearchResultFragment.newInstance(query)).commit();
         }
     }
 }

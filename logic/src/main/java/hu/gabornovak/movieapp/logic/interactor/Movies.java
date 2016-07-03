@@ -34,4 +34,18 @@ public class Movies {
             }
         });
     }
+
+    public void searchMovies(String searchText, final OnMoviesLoaded onMoviesLoaded) {
+        movieGateway.searchMovies(searchText, new MovieGateway.OnMoviesLoaded() {
+            @Override
+            public void onSuccess(List<Movie> movies) {
+                onMoviesLoaded.onMoviesLoaded(movies);
+            }
+
+            @Override
+            public void onError(String errorMsg) {
+                onMoviesLoaded.onError(errorMsg);
+            }
+        });
+    }
 }
