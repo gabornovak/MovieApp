@@ -20,7 +20,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/main_background"
                 android:visibility="gone"
-                app:layoutManager="LinearLayoutManager" />
+                app:layoutManager="GridLayoutManager" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

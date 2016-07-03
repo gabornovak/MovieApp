@@ -9,7 +9,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import hu.gabornovak.movieapp.R;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Media;
-import hu.gabornovak.movieapp.logic.entity.Movie;
 
 public class MovieDetailActivity extends AppCompatActivity {
     private static final String EXTRA_MEDIA = "Extra media";
@@ -23,9 +22,9 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         posterView = (SimpleDraweeView) findViewById(R.id.poster);
 
-        Movie movie = (Movie) getIntent().getExtras().getSerializable(EXTRA_MEDIA);
-        if (movie != null) {
-            String url = Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMediaPosterUrl(movie);
+        Media media = (Media) getIntent().getExtras().getSerializable(EXTRA_MEDIA);
+        if (media != null) {
+            String url = Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMediaPosterUrl(media);
             posterView.setImageURI(url);
         }
     }
