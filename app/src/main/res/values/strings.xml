@@ -16,4 +16,8 @@
     <string name="error_in_detail_reqest_message">An error occurred during download!</string>
     <string name="open_imdb_page">Open IMDB page</string>
     <string name="open_website">Open website</string>
+    <string name="retry_action_text">Retry</string>
+    <string name="in_total_season_text" formatted="false">In total %d seasons, %d episodes:</string>
+    <string name="season_episode_text" formatted="false">Season %d: %d episodes</string>
+    <string name="runtime_text" formatted="false">%d mins</string>
 </resources>

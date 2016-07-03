@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.gabornovak.movieapp.logic.entity.DetailedMovie;
+import hu.gabornovak.movieapp.logic.entity.DetailedTVShow;
 import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 import hu.gabornovak.movieapp.logic.entity.TVShow;
@@ -123,6 +124,31 @@ public class DefaultMediaGateway implements MediaGateway {
             });
         } else {
             onDetailedMovieLoaded.onError(RequestErrorType.NO_INTERNET_ERROR);
+        }
+    }
+
+    @Override
+    public void loadDetailedTVShow(final Media media, final OnDetailedTVShowLoaded onDetailedTVShowLoaded) {
+        if (connectionPlugin.hasConnection()) {
+            restPlugin.get("tv/" + media.getId(), new MovieDbRestPlugin.OnComplete() {
+                @Override
+                public void onSuccess(String data) {
+                    DetailedTVShow tvShow = jsonParserPlugin.parseDetailedTVShow(data);
+                    if (tvShow != null) {
+                        tvShow.setTvShow((TVShow) media);
+                        onDetailedTVShowLoaded.onSuccess(tvShow);
+                    } else {
+                        onDetailedTVShowLoaded.onError(RequestErrorType.PARSE_ERROR);
+                    }
+                }
+
+                @Override
+                public void onError(RequestErrorType errorType) {
+                    onDetailedTVShowLoaded.onError(errorType);
+                }
+            });
+        } else {
+            onDetailedTVShowLoaded.onError(RequestErrorType.NO_INTERNET_ERROR);
         }
     }
 

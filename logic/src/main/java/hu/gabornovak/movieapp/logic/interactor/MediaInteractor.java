@@ -3,6 +3,7 @@ package hu.gabornovak.movieapp.logic.interactor;
 import java.util.List;
 
 import hu.gabornovak.movieapp.logic.entity.DetailedMovie;
+import hu.gabornovak.movieapp.logic.entity.DetailedTVShow;
 import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 import hu.gabornovak.movieapp.logic.entity.TVShow;
@@ -33,6 +34,12 @@ public class MediaInteractor {
 
     public interface OnDetailedMovieLoaded {
         void onDetailedMovieLoaded(DetailedMovie movie);
+
+        void onError(RequestErrorType errorType);
+    }
+
+    public interface OnDetailedTVShowLoaded {
+        void onDetailedTVShowLoaded(DetailedTVShow tvShow);
 
         void onError(RequestErrorType errorType);
     }
@@ -95,6 +102,20 @@ public class MediaInteractor {
             @Override
             public void onError(RequestErrorType errorType) {
                 onDetailedMovieLoaded.onError(errorType);
+            }
+        });
+    }
+
+    public void getTVShowDetails(Media media, final OnDetailedTVShowLoaded onDetailedTVShowLoaded) {
+        mediaGateway.loadDetailedTVShow(media, new MediaGateway.OnDetailedTVShowLoaded() {
+            @Override
+            public void onSuccess(DetailedTVShow tvShow) {
+                onDetailedTVShowLoaded.onDetailedTVShowLoaded(tvShow);
+            }
+
+            @Override
+            public void onError(RequestErrorType errorType) {
+                onDetailedTVShowLoaded.onError(errorType);
             }
         });
     }

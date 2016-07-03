@@ -2,6 +2,7 @@ package hu.gabornovak.movieapp.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Locale;
 
 import hu.gabornovak.movieapp.R;
-import hu.gabornovak.movieapp.activity.MovieDetailActivity;
+import hu.gabornovak.movieapp.activity.MediaDetailActivity;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Media;
 
@@ -49,14 +50,14 @@ public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<MediaRecycler
         holder.view.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View v) {
-                                               Intent intent = new Intent(activity, MovieDetailActivity.class);
-                                               MovieDetailActivity.setExtras(intent, media);
+                                               Intent intent = new Intent(activity, MediaDetailActivity.class);
+                                               MediaDetailActivity.setExtras(intent, media);
 
                                                //TODO Fix shared transition. It has issues with Fresco (maybe replace it to something else).
-/*                                               ActivityOptionsCompat options = ActivityOptionsCompat.
-                                                       makeSceneTransitionAnimation(activity, holder.profile, "profile");
-                                               activity.startActivity(intent, options.toBundle());*/
-                                               activity.startActivity(intent);
+                                               ActivityOptionsCompat options = ActivityOptionsCompat.
+                                                       makeSceneTransitionAnimation(activity, holder.poster, "poster");
+                                               activity.startActivity(intent, options.toBundle());
+                                               //activity.startActivity(intent);
                                            }
                                        }
         );

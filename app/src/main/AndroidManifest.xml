@@ -39,7 +39,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".activity.MovieDetailActivity"
+            android:name=".activity.MediaDetailActivity"
             android:theme="@style/AppThemeNoTitleBar"
             android:screenOrientation="sensorPortrait" />
     </application>

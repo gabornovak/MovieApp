@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hu.gabornovak.movieapp.logic.entity.DetailedMovie;
+import hu.gabornovak.movieapp.logic.entity.DetailedTVShow;
 import hu.gabornovak.movieapp.logic.entity.Genre;
 import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 import hu.gabornovak.movieapp.logic.entity.Person;
+import hu.gabornovak.movieapp.logic.entity.Season;
 import hu.gabornovak.movieapp.logic.entity.TVShow;
 
 public class DefaultJsonParserPlugin implements JsonParserPlugin {
@@ -152,6 +154,41 @@ public class DefaultJsonParserPlugin implements JsonParserPlugin {
         return person;
     }
 
+    @Override
+    public DetailedTVShow parseDetailedTVShow(String jsonString) {
+        try {
+            JsonDetailTVShow result = parseJson(jsonString, JsonDetailTVShow.class);
+            if (result != null) {
+                return createDetailTVShowFromJson(result);
+            }
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    private DetailedTVShow createDetailTVShowFromJson(JsonDetailTVShow jsonDetailTVShow) {
+        DetailedTVShow tvShow = new DetailedTVShow();
+        tvShow.setFirstAirDate(jsonDetailTVShow.firstAirDate);
+        tvShow.setLastAirDate(jsonDetailTVShow.lastAirDate);
+        tvShow.setNumberOfEpisodes(jsonDetailTVShow.numberOfEpisodes);
+        tvShow.setNumberOfSeasons(jsonDetailTVShow.numberOfSeasons);
+        tvShow.setGenres(jsonDetailTVShow.genres);
+        tvShow.setHomepage(jsonDetailTVShow.homepage);
+        List<Season> seasons = new ArrayList<>();
+        for (JsonSeason jsonSeason : jsonDetailTVShow.seasons) {
+            Season season = new Season();
+            season.setEpisodeCount(jsonSeason.episodeCount);
+            season.setId(jsonSeason.id);
+            season.setPosterPath(jsonSeason.posterPath);
+            season.setSeasonNumber(jsonSeason.seasonNumber);
+            seasons.add(season);
+        }
+        tvShow.setSeasons(seasons);
+        return tvShow;
+    }
+
     private TVShow createTVShowFromJsonMedia(JsonMedia media) {
         TVShow tvShow = new TVShow();
         tvShow.setName(media.name);
@@ -210,7 +247,6 @@ public class DefaultJsonParserPlugin implements JsonParserPlugin {
         @SerializedName("vote_average")
         float rating;
         String overview;
-
         @SerializedName("media_type")
         String mediaType;
 
@@ -223,5 +259,29 @@ public class DefaultJsonParserPlugin implements JsonParserPlugin {
         String name;
         @SerializedName("first_air_date")
         String firstAirDate;
+    }
+
+    private static class JsonDetailTVShow {
+        String homepage;
+        @SerializedName("last_air_date")
+        String lastAirDate;
+        @SerializedName("first_air_date")
+        String firstAirDate;
+        @SerializedName("number_of_episodes")
+        int numberOfEpisodes;
+        @SerializedName("number_of_seasons")
+        int numberOfSeasons;
+        List<JsonSeason> seasons;
+        List<Genre> genres;
+    }
+
+    private static class JsonSeason {
+        int id;
+        @SerializedName("episode_count")
+        int episodeCount;
+        @SerializedName("season_number")
+        int seasonNumber;
+        @SerializedName("poster_path")
+        String posterPath;
     }
 }

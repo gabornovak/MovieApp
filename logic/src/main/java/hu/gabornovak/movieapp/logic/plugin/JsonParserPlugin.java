@@ -3,6 +3,7 @@ package hu.gabornovak.movieapp.logic.plugin;
 import java.util.List;
 
 import hu.gabornovak.movieapp.logic.entity.DetailedMovie;
+import hu.gabornovak.movieapp.logic.entity.DetailedTVShow;
 import hu.gabornovak.movieapp.logic.entity.Genre;
 import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
@@ -20,5 +21,7 @@ public interface JsonParserPlugin {
 
     List<Media> parseMedia(String jsonString);
 
-    DetailedMovie parseDetailedMovie(String data);
+    DetailedMovie parseDetailedMovie(String jsonString);
+
+    DetailedTVShow parseDetailedTVShow(String jsonString);
 }

@@ -4,6 +4,7 @@ package hu.gabornovak.movieapp.logic.gateway;
 import java.util.List;
 
 import hu.gabornovak.movieapp.logic.entity.DetailedMovie;
+import hu.gabornovak.movieapp.logic.entity.DetailedTVShow;
 import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 import hu.gabornovak.movieapp.logic.entity.TVShow;
@@ -28,6 +29,11 @@ public interface MediaGateway {
         void onError(RequestErrorType errorType);
     }
 
+    interface OnDetailedTVShowLoaded {
+        void onSuccess(DetailedTVShow tvShow);
+        void onError(RequestErrorType errorType);
+    }
+
     interface OnMediaLoaded {
         void onSuccess(List<Media> media);
         void onError(RequestErrorType errorType);
@@ -40,4 +46,6 @@ public interface MediaGateway {
     void searchMedia(String searchText, OnMediaLoaded onMediaLoaded);
 
     void loadDetailedMovie(Media media, OnDetailedMovieLoaded onDetailedMovieLoaded);
+
+    void loadDetailedTVShow(Media media, OnDetailedTVShowLoaded onDetailedTVShowLoaded);
 }
