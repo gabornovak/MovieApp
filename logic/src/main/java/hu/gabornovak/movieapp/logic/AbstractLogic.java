@@ -40,7 +40,7 @@ public abstract class AbstractLogic {
 
     protected abstract MediaInteractor createMovies();
 
-    public MediaInteractor getMovies() {
+    public MediaInteractor getMedia() {
         return movies.getInstance();
     }
 }

@@ -1,6 +1,8 @@
 package hu.gabornovak.movieapp.logic.entity;
 
-public class Movie extends Media {
+import java.io.Serializable;
+
+public class Movie extends Media implements Serializable {
     private String title;
     private String releaseDate;
 

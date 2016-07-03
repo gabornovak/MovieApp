@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,16 @@ import hu.gabornovak.movieapp.R;
 import hu.gabornovak.movieapp.activity.MovieDetailActivity;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Genre;
-import hu.gabornovak.movieapp.logic.entity.Movie;
+import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.gateway.GenreGateway;
 
-public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecyclerViewAdapter.ViewHolder> {
+public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<MediaRecyclerViewAdapter.ViewHolder> {
     private Activity activity;
-    private List<Movie> movies;
+    private List<? extends Media> media;
 
-    public MoviesRecyclerViewAdapter(Activity activity, List<Movie> movies) {
+    public MediaRecyclerViewAdapter(Activity activity, List<? extends Media> media) {
         this.activity = activity;
-        this.movies = movies;
+        this.media = media;
     }
 
     @Override
@@ -38,23 +39,23 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final Movie movie = movies.get(position);
+        final Media media = this.media.get(position);
 
-        holder.title.setText(movie.getTitle());
-        holder.overview.setText(movie.getOverview());
-        holder.releaseDate.setText(movie.getDate());
+        holder.title.setText(media.getTitle());
+        holder.overview.setText(media.getOverview());
+        holder.releaseDate.setText(media.getDate());
 
-        holder.rating.setText(String.format(Locale.getDefault(), "%.1f", movie.getRating()));
+        holder.rating.setText(String.format(Locale.getDefault(), "%.1f", media.getRating()));
         holder.ratingProgress.setPivotX(0);
-        holder.ratingProgress.setScaleX(movie.getRating() / 10f);
+        holder.ratingProgress.setScaleX(media.getRating() / 10f);
 
-        holder.poster.setImageURI(Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMediaPosterUrl(movie));
+        holder.poster.setImageURI(Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMediaPosterUrl(media));
 
         holder.view.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View v) {
                                                Intent intent = new Intent(activity, MovieDetailActivity.class);
-                                               MovieDetailActivity.setExtras(intent, movie);
+                                               MovieDetailActivity.setExtras(intent, media);
 
                                                //TODO Fix shared transition. It has issues with Fresco (maybe replace it to something else).
 /*                                               ActivityOptionsCompat options = ActivityOptionsCompat.
@@ -65,9 +66,9 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
                                        }
         );
 
-        Logic.getInstance().getGatewayFactory().getGenreGateway().loadGenresForMovie(movie, new GenreGateway.OnGenresLoaded() {
+        Logic.getInstance().getGatewayFactory().getGenreGateway().loadGenres(media, new GenreGateway.OnGenresLoaded() {
             @Override
-            public void onSuccess(Movie movie, final List<Genre> genres) {
+            public void onSuccess(Media media, final List<Genre> genres) {
                 if (activity != null) {
                     activity.runOnUiThread(new Runnable() {
                         @Override
@@ -81,7 +82,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
             @Override
             public void onError(String errorMsg) {
                 //TODO Handle error
-                System.out.println("Error occuredd");
+                Log.e("Adapter", "Error occurred");
             }
         });
     }
@@ -100,7 +101,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return media.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 
 import java.util.List;
 
-import hu.gabornovak.movieapp.adapter.MoviesRecyclerViewAdapter;
+import hu.gabornovak.movieapp.adapter.MediaRecyclerViewAdapter;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 import hu.gabornovak.movieapp.logic.interactor.MediaInteractor;
@@ -25,13 +25,13 @@ public class MoviesSearchResultFragment extends ListFragment {
     protected void loadList() {
         String searchText = getArguments().getString(ARG_SEARCH_TEXT);
 
-        Logic.getInstance().getMovies().searchMovies(searchText, new MediaInteractor.OnMoviesLoaded() {
+        Logic.getInstance().getMedia().searchMovies(searchText, new MediaInteractor.OnMoviesLoaded() {
             @Override
             public void onMoviesLoaded(final List<Movie> movies) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setAdapter(new MoviesRecyclerViewAdapter(getActivity(), movies));
+                        setAdapter(new MediaRecyclerViewAdapter(getActivity(), movies));
                         showList();
                     }
                 });

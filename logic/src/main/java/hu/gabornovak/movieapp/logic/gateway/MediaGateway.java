@@ -24,5 +24,5 @@ public interface MediaGateway {
 
     void searchMovies(String searchText, OnMoviesLoaded onMoviesLoaded);
 
-    //TODO Add TV Shows
+    void loadPopularTVShows(OnTVShowsLoaded onTVShowsLoaded);
 }

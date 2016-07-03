@@ -1,12 +1,13 @@
 package hu.gabornovak.movieapp.logic.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by gnovak on 7/3/2016.
  */
 
-public abstract class Media {
+public abstract class Media implements Serializable {
     private int id;
     private String posterPath;
     private List<Integer> genreIds;

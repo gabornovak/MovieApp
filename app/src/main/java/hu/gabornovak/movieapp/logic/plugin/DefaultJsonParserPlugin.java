@@ -62,8 +62,32 @@ public class DefaultJsonParserPlugin implements JsonParserPlugin {
 
     @Override
     public List<TVShow> parseTVShows(String jsonString) {
-        //FIXME
+        try {
+            MediaResult result = parseJson(jsonString, MediaResult.class);
+            if (result != null) {
+                List<TVShow> tvShows = new ArrayList<>();
+                for (JsonMedia media : result.results) {
+                    tvShows.add(createTVShowFromJsonMedia(media));
+                }
+                return tvShows;
+            }
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
         return null;
+    }
+
+    private TVShow createTVShowFromJsonMedia(JsonMedia media) {
+        TVShow tvShow = new TVShow();
+        tvShow.setName(media.name);
+        tvShow.setFirstAirDate(media.firstAirDate);
+        tvShow.setGenreIds(media.genreIds);
+        tvShow.setId(media.id);
+        tvShow.setOverview(media.overview);
+        tvShow.setPosterPath(media.posterPath);
+        tvShow.setRating(media.rating);
+        return tvShow;
     }
 
     /**

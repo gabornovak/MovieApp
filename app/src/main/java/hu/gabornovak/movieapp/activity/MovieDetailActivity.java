@@ -8,10 +8,11 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import hu.gabornovak.movieapp.R;
 import hu.gabornovak.movieapp.logic.Logic;
+import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 
 public class MovieDetailActivity extends AppCompatActivity {
-    private static final String EXTRA_MOVIE = "Extra movie";
+    private static final String EXTRA_MEDIA = "Extra media";
 
     private SimpleDraweeView posterView;
 
@@ -22,14 +23,14 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         posterView = (SimpleDraweeView) findViewById(R.id.poster);
 
-        Movie movie = (Movie) getIntent().getExtras().getSerializable(EXTRA_MOVIE);
+        Movie movie = (Movie) getIntent().getExtras().getSerializable(EXTRA_MEDIA);
         if (movie != null) {
             String url = Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMediaPosterUrl(movie);
             posterView.setImageURI(url);
         }
     }
 
-    public static void setExtras(Intent intent, Movie movie) {
-        //intent.putExtra(EXTRA_MOVIE, movie);
+    public static void setExtras(Intent intent, Media media) {
+        intent.putExtra(EXTRA_MEDIA, media);
     }
 }

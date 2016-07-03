@@ -1,6 +1,8 @@
 package hu.gabornovak.movieapp.logic.entity;
 
-public class TVShow extends Media {
+import java.io.Serializable;
+
+public class TVShow extends Media implements Serializable {
     private String name;
     private String firstAirDate;
 

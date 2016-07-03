@@ -51,6 +51,21 @@ public class DefaultMediaGateway implements MediaGateway {
         });
     }
 
+    @Override
+    public void loadPopularTVShows(final OnTVShowsLoaded onTVShowsLoaded) {
+        restPlugin.get("tv/popular", new MovieDbRestPlugin.OnComplete() {
+            @Override
+            public void onSuccess(String data) {
+                onTVShowsLoaded.onSuccess(jsonParserPlugin.parseTVShows(data));
+            }
+
+            @Override
+            public void onError() {
+                onTVShowsLoaded.onError("An error occurred during download...");
+            }
+        });
+    }
+
     private List<Pair<String, String>> createParamsForSearch(String searchText) {
         List<Pair<String, String>> params = new ArrayList<>();
         params.add(new Pair<>("query", searchText));

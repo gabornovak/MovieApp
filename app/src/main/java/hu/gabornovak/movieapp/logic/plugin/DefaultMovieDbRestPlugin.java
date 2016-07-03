@@ -1,6 +1,7 @@
 package hu.gabornovak.movieapp.logic.plugin;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
@@ -81,7 +82,7 @@ public class DefaultMovieDbRestPlugin implements MovieDbRestPlugin {
     }
 
     private void callGet(String url, final OnComplete onComplete) {
-        System.out.println("Server call: " + url);
+        Log.i(getClass().getSimpleName(), "Server call: " + url);
         Request request = new Request.Builder().url(url).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
