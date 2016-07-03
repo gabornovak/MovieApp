@@ -4,6 +4,7 @@ package hu.gabornovak.movieapp.logic.gateway;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.gabornovak.movieapp.logic.entity.DetailedMovie;
 import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 import hu.gabornovak.movieapp.logic.entity.TVShow;
@@ -97,6 +98,31 @@ public class DefaultMediaGateway implements MediaGateway {
             });
         } else {
             onMediaLoaded.onError(RequestErrorType.NO_INTERNET_ERROR);
+        }
+    }
+
+    @Override
+    public void loadDetailedMovie(final Media media, final OnDetailedMovieLoaded onDetailedMovieLoaded) {
+        if (connectionPlugin.hasConnection()) {
+            restPlugin.get("movie/" + media.getId(), new MovieDbRestPlugin.OnComplete() {
+                @Override
+                public void onSuccess(String data) {
+                    DetailedMovie movie = jsonParserPlugin.parseDetailedMovie(data);
+                    if (movie != null) {
+                        movie.setMovie((Movie) media);
+                        onDetailedMovieLoaded.onSuccess(movie);
+                    } else {
+                        onDetailedMovieLoaded.onError(RequestErrorType.PARSE_ERROR);
+                    }
+                }
+
+                @Override
+                public void onError(RequestErrorType errorType) {
+                    onDetailedMovieLoaded.onError(errorType);
+                }
+            });
+        } else {
+            onDetailedMovieLoaded.onError(RequestErrorType.NO_INTERNET_ERROR);
         }
     }
 

@@ -40,6 +40,7 @@
         </activity>
         <activity
             android:name=".activity.MovieDetailActivity"
+            android:theme="@style/AppThemeNoTitleBar"
             android:screenOrientation="sensorPortrait" />
     </application>
 

@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.gabornovak.movieapp.logic.entity.DetailedMovie;
 import hu.gabornovak.movieapp.logic.entity.Genre;
 import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
@@ -97,6 +98,16 @@ public class DefaultJsonParserPlugin implements JsonParserPlugin {
             return null;
         }
         return null;
+    }
+
+    @Override
+    public DetailedMovie parseDetailedMovie(String jsonString) {
+        try {
+            return parseJson(jsonString, DetailedMovie.class);
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

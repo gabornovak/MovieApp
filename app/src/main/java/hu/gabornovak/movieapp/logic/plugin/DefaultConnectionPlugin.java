@@ -16,7 +16,6 @@ public class DefaultConnectionPlugin implements ConnectionPlugin {
     @Override
     public boolean hasConnection() {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        System.out.println(cm.getActiveNetworkInfo() != null  && cm.getActiveNetworkInfo().isConnected());
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
     }
 }
