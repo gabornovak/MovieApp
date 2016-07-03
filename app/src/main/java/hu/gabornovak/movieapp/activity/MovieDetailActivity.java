@@ -1,12 +1,14 @@
 package hu.gabornovak.movieapp.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -33,6 +35,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView rating;
     private TextView overview;
     private TextView playTime;
+    private TextView imdb;
+    private TextView website;
     private CollapsingToolbarLayout collapsingToolbar;
 
     @Override
@@ -45,35 +49,105 @@ public class MovieDetailActivity extends AppCompatActivity {
         setupTitleBar();
 
         Media media = (Media) getIntent().getExtras().getSerializable(EXTRA_MEDIA);
+
         if (media != null) {
             String url = Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMediaPosterUrl(media);
             posterView.setImageURI(url);
-            loadMediaInfo(media);
-
+            loadMediaInfoIntoViews(media);
             loadDetailsAsync(media);
+        } else {
+            //TODO Add some toast
+            finish();
         }
     }
 
-    private void loadDetailsAsync(Media media) {
-        Logic.getInstance().getMedia().getMovieDetails(media, new MediaInteractor.OnDetailedMovieLoaded() {
 
+    private void loadDetailsAsync(final Media media) {
+        hideDetailViews();
+        Logic.getInstance().getMedia().getMovieDetails(media, new MediaInteractor.OnDetailedMovieLoaded() {
             @Override
             public void onDetailedMovieLoaded(final DetailedMovie movie) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        tagline.setText(movie.getTagline());
-                        playTime.setText(movie.getRuntime() + " mins");
-                        genres.setText(createGenresText(movie.getGenres()));
+                        //Check if the views are still there
+                        if (tagline != null) {
+                            loadDetailsIntoViews(movie);
+                        }
                     }
                 });
             }
 
             @Override
             public void onError(RequestErrorType errorType) {
-                Snackbar.make(tagline, getString(R.string.error_in_detail_reqest_message), Snackbar.LENGTH_LONG).show();
+                Snackbar snackBar = Snackbar.make(tagline, getString(R.string.error_in_detail_reqest_message), Snackbar.LENGTH_LONG);
+                snackBar.setActionTextColor(ActivityCompat.getColor(MovieDetailActivity.this, R.color.main_background));
+                snackBar.setAction("Retry", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadDetailsAsync(media);
+                    }
+                });
+                snackBar.show();
             }
         });
+    }
+
+    private void hideDetailViews() {
+        tagline.setVisibility(View.GONE);
+        playTime.setVisibility(View.GONE);
+        genres.setVisibility(View.GONE);
+        imdb.setVisibility(View.GONE);
+        website.setVisibility(View.GONE);
+    }
+
+    private void showDetailViews() {
+        tagline.setVisibility(View.VISIBLE);
+        playTime.setVisibility(View.VISIBLE);
+        genres.setVisibility(View.VISIBLE);
+        imdb.setVisibility(View.VISIBLE);
+        website.setVisibility(View.VISIBLE);
+    }
+
+    private void loadDetailsIntoViews(DetailedMovie movie) {
+        showDetailViews();
+        tagline.setText(movie.getTagline());
+        playTime.setText(movie.getRuntime() + " mins");
+        genres.setText(createGenresText(movie.getGenres()));
+        handleImdb(movie);
+        handleWebsite(movie);
+    }
+
+    private void handleImdb(final DetailedMovie movie) {
+        if (movie.getImdb_id() != null && !movie.getImdb_id().isEmpty()) {
+            setTextViewOnClick(imdb, "http://www.imdb.com/title/" + movie.getImdb_id());
+        } else {
+            imdb.setVisibility(View.GONE);
+        }
+    }
+
+    private void handleWebsite(final DetailedMovie movie) {
+        if (movie.getHomepage() != null && !movie.getHomepage().isEmpty()) {
+            setTextViewOnClick(website, movie.getHomepage());
+        } else {
+            website.setVisibility(View.GONE);
+        }
+    }
+
+    private void setTextViewOnClick(TextView textView, final String url) {
+        textView.setVisibility(View.VISIBLE);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openUrl(url);
+            }
+        });
+    }
+
+
+    private void openUrl(String url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
     }
 
     private String createGenresText(List<Genre> genres) {
@@ -87,7 +161,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         return genresString.toString();
     }
 
-    private void loadMediaInfo(Media media) {
+    private void loadMediaInfoIntoViews(Media media) {
         collapsingToolbar.setTitle(media.getTitle());
         title.setText(media.getTitle());
         rating.setText(String.format(Locale.getDefault(), "%.1f / 10", media.getRating()));
@@ -107,6 +181,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void loadViews() {
         posterView = (SimpleDraweeView) findViewById(R.id.poster);
         tagline = (TextView) findViewById(R.id.tagline);
+        imdb = (TextView) findViewById(R.id.imdb);
+        website = (TextView) findViewById(R.id.website);
         title = (TextView) findViewById(R.id.title);
         playTime = (TextView) findViewById(R.id.playTime);
         genres = (TextView) findViewById(R.id.genres);

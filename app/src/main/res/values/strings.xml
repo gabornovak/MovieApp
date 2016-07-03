@@ -13,5 +13,7 @@
     <string name="people_tab_title">People</string>
     <string name="unkown_tab_title">Unknown</string>
     <string name="no_result_error_message">No result!</string>
-    <string name="error_in_detail_reqest_message">Error during download</string>
+    <string name="error_in_detail_reqest_message">An error occurred during download!</string>
+    <string name="open_imdb_page">Open IMDB page</string>
+    <string name="open_website">Open website</string>
 </resources>

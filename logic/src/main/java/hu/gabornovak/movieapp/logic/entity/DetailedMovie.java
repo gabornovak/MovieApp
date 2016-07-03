@@ -12,6 +12,7 @@ public class DetailedMovie {
     private List<Genre> genres;
     private int runtime;
     private String tagline;
+    private String imdb_id;
 
     public String getHomepage() {
         return homepage;
@@ -51,5 +52,13 @@ public class DetailedMovie {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    public String getImdb_id() {
+        return imdb_id;
+    }
+
+    public void setImdb_id(String imdb_id) {
+        this.imdb_id = imdb_id;
     }
 }
