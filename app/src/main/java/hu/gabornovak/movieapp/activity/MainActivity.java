@@ -44,8 +44,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
-
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        setupSearchView(menu, searchManager);
+        return true;
+    }
+
+    private void setupSearchView(Menu menu, SearchManager searchManager) {
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(true);
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         searchView.setSubmitButtonEnabled(true);
         searchView.clearFocus();
         searchView.setQueryHint(getString(R.string.search_hint));
-        return true;
+        searchView.setMaxWidth(Integer.MAX_VALUE);
     }
 
     protected void onSaveInstanceState(Bundle outState) {

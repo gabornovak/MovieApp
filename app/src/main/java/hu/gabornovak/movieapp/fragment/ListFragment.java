@@ -1,5 +1,6 @@
 package hu.gabornovak.movieapp.fragment;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import hu.gabornovak.movieapp.R;
 import hu.gabornovak.movieapp.logic.utils.RequestErrorType;
+
+import static android.view.View.GONE;
 
 abstract class ListFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -71,18 +74,68 @@ abstract class ListFragment extends Fragment {
         }
     }
 
+    private void fadeInViews(View... views) {
+        for (final View view : views) {
+            view.animate().cancel();
+            view.animate().alpha(1f).setDuration(200).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    view.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
+    }
+
+    private void fadeOutViews(View... views) {
+        for (final View view : views) {
+            view.animate().cancel();
+            view.animate().alpha(0f).setDuration(200).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    view.setVisibility(GONE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+                    view.setVisibility(GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
+    }
+
     private void showProgress() {
-        recyclerView.setVisibility(View.GONE);
-        progressLayout.setVisibility(View.VISIBLE);
-        errorLayout.setVisibility(View.GONE);
+        fadeOutViews(recyclerView, errorLayout);
+        fadeInViews(progressLayout);
         swipeRefreshLayout.setRefreshing(false);
     }
 
     void showErrorMessage(String message) {
         messageText.setText(message);
-        recyclerView.setVisibility(View.GONE);
-        progressLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.VISIBLE);
+        fadeOutViews(recyclerView, progressLayout);
+        fadeInViews(errorLayout);
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -101,9 +154,8 @@ abstract class ListFragment extends Fragment {
     }
 
     void showList() {
-        recyclerView.setVisibility(View.VISIBLE);
-        progressLayout.setVisibility(View.GONE);
-        errorLayout.setVisibility(View.GONE);
+        fadeOutViews(errorLayout, progressLayout);
+        fadeInViews(recyclerView);
         swipeRefreshLayout.setRefreshing(false);
     }
 }
