@@ -54,7 +54,7 @@ public abstract class AbstractLogic {
 
     protected abstract PersonInteractor createPersonInteractor();
 
-    public PersonInteractor getPersonInteractor() {
+    public PersonInteractor getPeople() {
         return people.getInstance();
     }
 }

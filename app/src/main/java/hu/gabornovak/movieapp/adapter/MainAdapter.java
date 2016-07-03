@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import hu.gabornovak.movieapp.fragment.MoviesFragment;
+import hu.gabornovak.movieapp.fragment.PeopleFragment;
 import hu.gabornovak.movieapp.fragment.TVShowsFragment;
 
 /**
@@ -26,7 +27,7 @@ public class MainAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return TVShowsFragment.newInstance();
             case 2:
-                return MoviesFragment.newInstance();
+                return PeopleFragment.newInstance();
             default:
                 return MoviesFragment.newInstance();
         }

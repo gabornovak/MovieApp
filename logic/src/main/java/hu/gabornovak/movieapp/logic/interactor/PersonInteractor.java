@@ -9,7 +9,7 @@ import hu.gabornovak.movieapp.logic.gateway.PersonGateway;
  * Created by gnovak on 7/2/2016.
  */
 public class PersonInteractor {
-    interface OnPeopleLoaded {
+    public interface OnPeopleLoaded {
         void onPeopleLoaded(List<Person> people);
         void onError(String errorMsg);
     }

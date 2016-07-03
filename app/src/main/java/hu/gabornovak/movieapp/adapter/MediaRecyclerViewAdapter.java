@@ -59,7 +59,7 @@ public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<MediaRecycler
 
                                                //TODO Fix shared transition. It has issues with Fresco (maybe replace it to something else).
 /*                                               ActivityOptionsCompat options = ActivityOptionsCompat.
-                                                       makeSceneTransitionAnimation(activity, holder.poster, "poster");
+                                                       makeSceneTransitionAnimation(activity, holder.profile, "profile");
                                                activity.startActivity(intent, options.toBundle());*/
                                                activity.startActivity(intent);
                                            }
