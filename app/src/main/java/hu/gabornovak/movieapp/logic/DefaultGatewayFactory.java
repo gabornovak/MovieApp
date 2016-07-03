@@ -4,8 +4,10 @@ import android.content.Context;
 
 import hu.gabornovak.movieapp.logic.gateway.DefaultGenreGateway;
 import hu.gabornovak.movieapp.logic.gateway.DefaultMovieGateway;
+import hu.gabornovak.movieapp.logic.gateway.DefaultTVShowGateway;
 import hu.gabornovak.movieapp.logic.gateway.GenreGateway;
 import hu.gabornovak.movieapp.logic.gateway.MovieGateway;
+import hu.gabornovak.movieapp.logic.gateway.TVShowGateway;
 
 
 public class DefaultGatewayFactory extends AbstractGatewayFactory {
@@ -19,6 +21,12 @@ public class DefaultGatewayFactory extends AbstractGatewayFactory {
     public MovieGateway createMovieGateway() {
         return new DefaultMovieGateway(Logic.getInstance().getPluginFactory().getRestPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
     }
+
+    @Override
+    public TVShowGateway createTVShowGateway() {
+        return new DefaultTVShowGateway(Logic.getInstance().getPluginFactory().getRestPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
+    }
+
 
     @Override
     public GenreGateway createGenreGateway() {

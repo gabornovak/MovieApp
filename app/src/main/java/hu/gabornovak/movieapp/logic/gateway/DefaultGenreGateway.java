@@ -21,7 +21,7 @@ public class DefaultGenreGateway implements GenreGateway {
     /**
      * In memory cache
      */
-    private SparseArray<Genre> genresCache;
+    private SparseArray<Genre> movieGenresCache;
 
     public DefaultGenreGateway(MovieDbRestPlugin restPlugin, JsonParserPlugin jsonParserPlugin) {
         this.restPlugin = restPlugin;
@@ -30,15 +30,15 @@ public class DefaultGenreGateway implements GenreGateway {
 
     @Override
     public void loadGenresForMovie(final Movie movie, final OnGenresLoaded onGenresLoaded) {
-        if (genresCache != null) {
+        if (movieGenresCache != null) {
             loadGenresFromCache(movie, onGenresLoaded);
         } else {
             restPlugin.get("genre/movie/list", new MovieDbRestPlugin.OnComplete() {
                 @Override
                 public void onSuccess(String data) {
-                    genresCache = new SparseArray<>();
+                    movieGenresCache = new SparseArray<>();
                     for (Genre genre : jsonParserPlugin.parseGenres(data)) {
-                        genresCache.append(genre.getId(), genre);
+                        movieGenresCache.append(genre.getId(), genre);
                     }
                     loadGenresFromCache(movie, onGenresLoaded);
                 }
@@ -55,7 +55,7 @@ public class DefaultGenreGateway implements GenreGateway {
     private void loadGenresFromCache(Movie movie, OnGenresLoaded onGenresLoaded) {
         List<Genre> genres = new ArrayList<>();
         for (int genreId : movie.getGenre_ids()) {
-            Genre genre = genresCache.get(genreId);
+            Genre genre = movieGenresCache.get(genreId);
             if (genre != null) {
                 genres.add(genre);
             }

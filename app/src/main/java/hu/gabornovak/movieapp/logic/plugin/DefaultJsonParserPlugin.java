@@ -8,6 +8,7 @@ import java.util.List;
 
 import hu.gabornovak.movieapp.logic.entity.Genre;
 import hu.gabornovak.movieapp.logic.entity.Movie;
+import hu.gabornovak.movieapp.logic.entity.TVShow;
 
 public class DefaultJsonParserPlugin implements JsonParserPlugin {
     /**
@@ -15,6 +16,12 @@ public class DefaultJsonParserPlugin implements JsonParserPlugin {
      */
     private static class MovieResult {
         List<Movie> results;
+    }
+    /**
+     * Helper class for json parsing
+     */
+    private static class TVShowResult {
+        List<TVShow> results;
     }
 
     /**
@@ -66,4 +73,17 @@ public class DefaultJsonParserPlugin implements JsonParserPlugin {
         return null;
     }
 
+    @Override
+    public List<TVShow> parseTVShows(String jsonString) {
+        try {
+            TVShowResult result = parseJson(jsonString, TVShowResult.class);
+            if (result != null) {
+                return result.results;
+            }
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
 }

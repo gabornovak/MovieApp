@@ -6,6 +6,7 @@ import java.util.List;
 
 import hu.gabornovak.movieapp.logic.entity.Genre;
 import hu.gabornovak.movieapp.logic.entity.Movie;
+import hu.gabornovak.movieapp.logic.entity.TVShow;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -41,6 +42,32 @@ public class DefaultJsonParserPluginTest {
             "]" +
             "}";
 
+    private static final String VALID_TV_SHOW_JSON = "{\n" +
+            "  \"page\": 1,\n" +
+            "  \"results\": [\n" +
+            "    {\n" +
+            "      \"poster_path\": \"/jIhL6mlT7AblhbHJgEoiBIOUVl1.jpg\",\n" +
+            "      \"popularity\": 41.377024,\n" +
+            "      \"id\": 1399,\n" +
+            "      \"backdrop_path\": \"/mUkuc2wyV9dHLG0D0Loaw5pO2s8.jpg\",\n" +
+            "      \"vote_average\": 7.94,\n" +
+            "      \"overview\": \"Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.\",\n" +
+            "      \"first_air_date\": \"2011-04-17\",\n" +
+            "      \"origin_country\": [\n" +
+            "        \"US\"\n" +
+            "      ],\n" +
+            "      \"genre_ids\": [\n" +
+            "        10765,\n" +
+            "        10759,\n" +
+            "        18\n" +
+            "      ],\n" +
+            "      \"original_language\": \"en\",\n" +
+            "      \"vote_count\": 984,\n" +
+            "      \"name\": \"Game of Thrones\",\n" +
+            "      \"original_name\": \"Game of Thrones\"\n" +
+            "    }" +
+            "]" +
+            "}";
 
     private static final String VALID_GENRES_JSON = "{\n" +
             "  \"genres\": [\n" +
@@ -99,6 +126,37 @@ public class DefaultJsonParserPluginTest {
     public void parseNull() throws Exception {
         DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
         assertNull(plugin.parseMovies(null));
+    }
+
+
+    @Test
+    public void parseValidTVShow() throws Exception {
+        DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
+        assertNotNull(plugin.parseTVShows(VALID_TV_SHOW_JSON));
+    }
+
+    @Test
+    public void parseValidTVShowValidFields() throws Exception {
+        DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
+        List<TVShow> tvShows = plugin.parseTVShows(VALID_TV_SHOW_JSON);
+        assertTrue(tvShows.size() == 1);
+        TVShow tvShow = tvShows.get(0);
+        assertEquals(tvShow.getId(), 1399);
+        assertEquals(tvShow.getOverview(), "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.");
+        assertEquals(tvShow.getPoster_path(), "/jIhL6mlT7AblhbHJgEoiBIOUVl1.jpg");
+        assertEquals(tvShow.getName(), "Game of Thrones");
+    }
+
+    @Test
+    public void parseInvalidTVShow() throws Exception {
+        DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
+        assertNull(plugin.parseTVShows("It is an invalid json"));
+    }
+
+    @Test
+    public void parseNullTVShow() throws Exception {
+        DefaultJsonParserPlugin plugin = new DefaultJsonParserPlugin();
+        assertNull(plugin.parseTVShows(null));
     }
 
     @Test

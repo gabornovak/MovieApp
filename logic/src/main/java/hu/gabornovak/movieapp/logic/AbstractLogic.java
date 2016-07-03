@@ -1,6 +1,7 @@
 package hu.gabornovak.movieapp.logic;
 
 import hu.gabornovak.movieapp.logic.interactor.Movies;
+import hu.gabornovak.movieapp.logic.interactor.TVShows;
 
 public abstract class AbstractLogic {
     //region Factories
@@ -31,7 +32,6 @@ public abstract class AbstractLogic {
     }
     //endregion
 
-
     private LazyInstance<Movies> movies = new LazyInstance<Movies>() {
         @Override
         protected Movies createInstance() {
@@ -43,5 +43,18 @@ public abstract class AbstractLogic {
 
     public Movies getMovies() {
         return movies.getInstance();
+    }
+
+    private LazyInstance<TVShows> tvShows = new LazyInstance<TVShows>() {
+        @Override
+        protected TVShows createInstance() {
+            return createTVShows();
+        }
+    };
+
+    protected abstract TVShows createTVShows();
+
+    public TVShows getTVShows() {
+        return tvShows.getInstance();
     }
 }

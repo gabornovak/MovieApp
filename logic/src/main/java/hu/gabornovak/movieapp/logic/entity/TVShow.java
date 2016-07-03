@@ -11,35 +11,37 @@ import java.util.List;
  * and this should be only used in the json parsing method.
  *
  * JSON example:
- *     {
-         "poster_path": "/9KQX22BeFzuNM66pBA6JbiaJ7Mi.jpg",
-         "adult": false,
-         "overview": "We always knew they were coming back. Using recovered alien technology, the nations of Earth have collaborated on an immense defense program to protect the planet. But nothing can prepare us for the aliens’ advanced and unprecedented force. Only the ingenuity of a few brave men and women can bring our world back from the brink of extinction.",
-         "release_date": "2016-06-22",
-         "genre_ids": [
-            28,
-            12,
-            878
+ *
+    {
+         "poster_path": "/jIhL6mlT7AblhbHJgEoiBIOUVl1.jpg",
+         "popularity": 41.377024,
+         "id": 1399,
+         "backdrop_path": "/mUkuc2wyV9dHLG0D0Loaw5pO2s8.jpg",
+         "vote_average": 7.94,
+         "overview": "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
+         "first_air_date": "2011-04-17",
+         "origin_country": [
+             "US"
          ],
-         "id": 47933,
-         "original_title": "Independence Day: Resurgence",
+         "genre_ids": [
+             10765,
+             10759,
+             18
+         ],
          "original_language": "en",
-         "title": "Independence Day: Resurgence",
-         "backdrop_path": "/8SqBiesvo1rh9P1hbJTmnVum6jv.jpg",
-         "popularity": 35.359988,
-         "vote_count": 302,
-         "video": false,
-         "vote_average": 4.51
-       }
+         "vote_count": 984,
+         "name": "Game of Thrones",
+         "original_name": "Game of Thrones"
+     }
  *
  */
-public class Movie implements Serializable {
+public class TVShow implements Serializable {
     private int id;
-    private String title;
+    private String name;
     private String overview;
     private String poster_path;
     private float vote_average;
-    private String release_date;
+    private String first_air_date;
     private List<Integer> genre_ids;
 
     public int getId() {
@@ -50,12 +52,12 @@ public class Movie implements Serializable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getOverview() {
@@ -86,17 +88,17 @@ public class Movie implements Serializable {
     public String toString() {
         return "Movie{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
+                ", name='" + name + '\'' +
                 ", overview='" + overview + '\'' +
                 '}';
     }
 
-    public String getRelease_date() {
-        return release_date;
+    public String getFirst_air_date() {
+        return first_air_date;
     }
 
-    public void setRelease_date(String release_date) {
-        this.release_date = release_date;
+    public void setFirst_air_date(String first_air_date) {
+        this.first_air_date = first_air_date;
     }
 
     public List<Integer> getGenre_ids() {
