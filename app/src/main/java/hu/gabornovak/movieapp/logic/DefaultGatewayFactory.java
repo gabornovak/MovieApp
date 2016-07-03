@@ -1,7 +1,5 @@
 package hu.gabornovak.movieapp.logic;
 
-import android.content.Context;
-
 import hu.gabornovak.movieapp.logic.gateway.DefaultGenreGateway;
 import hu.gabornovak.movieapp.logic.gateway.DefaultMediaGateway;
 import hu.gabornovak.movieapp.logic.gateway.DefaultPersonGateway;
@@ -11,10 +9,7 @@ import hu.gabornovak.movieapp.logic.gateway.PersonGateway;
 
 
 public class DefaultGatewayFactory extends AbstractGatewayFactory {
-    private Context context;
-
-    public DefaultGatewayFactory(Context context) {
-        this.context = context;
+    DefaultGatewayFactory() {
     }
 
     @Override

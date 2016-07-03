@@ -19,7 +19,7 @@ public class SearchResultActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
 
-            setTitle("Search \"" + query + "\"");
+            setTitle(getString(R.string.search_activity_title, query));
 
             getSupportFragmentManager().beginTransaction().add(R.id.container, MoviesSearchResultFragment.newInstance(query)).commit();
         }

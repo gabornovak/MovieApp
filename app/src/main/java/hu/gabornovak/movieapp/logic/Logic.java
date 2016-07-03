@@ -27,7 +27,7 @@ public class Logic extends AbstractLogic {
 
     @Override
     protected GatewayFactory createGatewayFactory() {
-        return new DefaultGatewayFactory(context);
+        return new DefaultGatewayFactory();
     }
 
     @Override

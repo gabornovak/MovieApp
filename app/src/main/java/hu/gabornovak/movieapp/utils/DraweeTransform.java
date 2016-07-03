@@ -16,7 +16,7 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.GenericDraweeView;
 
 /**
- * Created by gnovak on 7/3/2016.
+ *  Shared transition fix: https://gist.github.com/burzumrus/a589aa7e36ca003ddaf2334218c50ad0
  */
 
 @TargetApi(Build.VERSION_CODES.KITKAT)

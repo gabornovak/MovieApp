@@ -25,7 +25,7 @@
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/poster"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="@dimen/toolbar_image_height"
                 android:layout_centerInParent="true"
                 android:background="@color/poster_placeholder_background"
                 android:fitsSystemWindows="true"

@@ -20,4 +20,5 @@
     <string name="in_total_season_text" formatted="false">In total %d seasons, %d episodes:</string>
     <string name="season_episode_text" formatted="false">Season %d: %d episodes</string>
     <string name="runtime_text" formatted="false">%d mins</string>
+    <string name="search_activity_title" formatted="false">Search \"%s\"</string>
 </resources>

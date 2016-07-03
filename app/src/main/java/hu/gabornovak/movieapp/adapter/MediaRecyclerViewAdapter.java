@@ -52,12 +52,8 @@ public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<MediaRecycler
                                            public void onClick(View v) {
                                                Intent intent = new Intent(activity, MediaDetailActivity.class);
                                                MediaDetailActivity.setExtras(intent, media);
-
-                                               //TODO Fix shared transition. It has issues with Fresco (maybe replace it to something else).
-                                               ActivityOptionsCompat options = ActivityOptionsCompat.
-                                                       makeSceneTransitionAnimation(activity, holder.poster, "poster");
+                                               ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, holder.poster, "poster");
                                                activity.startActivity(intent, options.toBundle());
-                                               //activity.startActivity(intent);
                                            }
                                        }
         );
