@@ -1,12 +1,14 @@
 package hu.gabornovak.movieapp.logic.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by gnovak on 7/3/2016.
  */
 
-public class Person {
+//TODO Replace to Parcelable
+public class Person implements Serializable{
     private String name;
     private String profilePath;
     private int id;

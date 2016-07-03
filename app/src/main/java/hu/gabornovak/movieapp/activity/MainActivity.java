@@ -14,7 +14,6 @@ import hu.gabornovak.movieapp.R;
 import hu.gabornovak.movieapp.adapter.MainAdapter;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-
     private SearchView searchView;
 
     @Override

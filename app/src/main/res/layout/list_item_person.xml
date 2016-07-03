@@ -27,7 +27,7 @@
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/profile"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/list_item_image_height"
                 android:adjustViewBounds="true"
                 android:background="@color/poster_placeholder_background"
                 android:transitionName="poster"

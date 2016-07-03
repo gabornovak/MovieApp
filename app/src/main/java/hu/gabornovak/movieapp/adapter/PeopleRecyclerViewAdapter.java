@@ -1,6 +1,8 @@
 package hu.gabornovak.movieapp.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import hu.gabornovak.movieapp.R;
+import hu.gabornovak.movieapp.activity.PersonDetailActivity;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Person;
 
@@ -36,6 +39,17 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
 
         holder.name.setText(person.getName());
         holder.profile.setImageURI(Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getProfileUrl(person));
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+                                           @Override
+                                           public void onClick(View v) {
+                                               Intent intent = new Intent(activity, PersonDetailActivity.class);
+                                               PersonDetailActivity.setExtras(intent, person);
+                                               ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, holder.profile, "poster");
+                                               activity.startActivity(intent, options.toBundle());
+                                           }
+                                       }
+        );
 
         if (position > 1) {
             holder.topBackground.setVisibility(View.GONE);

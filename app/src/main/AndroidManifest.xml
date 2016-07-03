@@ -42,6 +42,11 @@
             android:name=".activity.MediaDetailActivity"
             android:theme="@style/AppThemeNoTitleBar"
             android:screenOrientation="sensorPortrait" />
+
+        <activity
+            android:name=".activity.PersonDetailActivity"
+            android:theme="@style/AppThemeNoTitleBar"
+            android:screenOrientation="sensorPortrait" />
     </application>
 
 </manifest>
