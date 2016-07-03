@@ -14,11 +14,11 @@ public class DefaultImagePathResolverPluginTest {
     @Test
     public void getValidMoviePosterUrl() throws Exception {
         Movie movie = new Movie();
-        movie.setPoster_path("/file.jpg");
+        movie.setPosterPath("/file.jpg");
 
         DefaultImagePathResolverPlugin plugin = new DefaultImagePathResolverPlugin();
 
-        assertEquals("http://image.tmdb.org/t/p/w500/file.jpg", plugin.getMoviePosterUrl(movie));
+        assertEquals("http://image.tmdb.org/t/p/w300/file.jpg", plugin.getMediaPosterUrl(movie));
     }
 
     @Test
@@ -26,7 +26,7 @@ public class DefaultImagePathResolverPluginTest {
         Movie movie = null;
         DefaultImagePathResolverPlugin plugin = new DefaultImagePathResolverPlugin();
 
-        assertNull(plugin.getMoviePosterUrl(movie));
+        assertNull(plugin.getMediaPosterUrl(movie));
     }
 
     @Test
@@ -34,14 +34,14 @@ public class DefaultImagePathResolverPluginTest {
         Movie movie = new Movie();
         DefaultImagePathResolverPlugin plugin = new DefaultImagePathResolverPlugin();
 
-        assertEquals("http://image.tmdb.org/t/p/w500", plugin.getMoviePosterUrl(movie));
+        assertEquals("http://image.tmdb.org/t/p/w300", plugin.getMediaPosterUrl(movie));
     }
 
     @Test
     public void createBaseUrl() throws Exception {
         DefaultImagePathResolverPlugin plugin = new DefaultImagePathResolverPlugin();
 
-        assertEquals("http://image.tmdb.org/t/p/w500", plugin.createBaseUrl());
+        assertEquals("http://image.tmdb.org/t/p/w300", plugin.createBaseUrl());
     }
 
 }

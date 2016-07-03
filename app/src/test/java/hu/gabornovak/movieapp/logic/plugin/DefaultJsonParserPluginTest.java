@@ -112,7 +112,7 @@ public class DefaultJsonParserPluginTest {
         Movie movie = movies.get(0);
         assertEquals(movie.getId(), 47933);
         assertEquals(movie.getOverview(), "We always knew they were coming back. Using recovered alien technology, the nations of Earth have collaborated on an immense defense program to protect the planet. But nothing can prepare us for the aliens’ advanced and unprecedented force. Only the ingenuity of a few brave men and women can bring our world back from the brink of extinction.");
-        assertEquals(movie.getPoster_path(), "/9KQX22BeFzuNM66pBA6JbiaJ7Mi.jpg");
+        assertEquals(movie.getPosterPath(), "/9KQX22BeFzuNM66pBA6JbiaJ7Mi.jpg");
         assertEquals(movie.getTitle(), "Independence Day: Resurgence");
     }
 
@@ -143,7 +143,7 @@ public class DefaultJsonParserPluginTest {
         TVShow tvShow = tvShows.get(0);
         assertEquals(tvShow.getId(), 1399);
         assertEquals(tvShow.getOverview(), "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.");
-        assertEquals(tvShow.getPoster_path(), "/jIhL6mlT7AblhbHJgEoiBIOUVl1.jpg");
+        assertEquals(tvShow.getPosterPath(), "/jIhL6mlT7AblhbHJgEoiBIOUVl1.jpg");
         assertEquals(tvShow.getName(), "Game of Thrones");
     }
 
