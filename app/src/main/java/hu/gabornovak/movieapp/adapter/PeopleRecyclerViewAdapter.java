@@ -1,7 +1,6 @@
 package hu.gabornovak.movieapp.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.List;
 
 import hu.gabornovak.movieapp.R;
-import hu.gabornovak.movieapp.activity.MovieDetailActivity;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Person;
 
@@ -39,21 +37,6 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
         holder.name.setText(person.getName());
         holder.profile.setImageURI(Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getProfileUrl(person));
         holder.knownFor.setText(createKnownForText(person));
-
-        holder.view.setOnClickListener(new View.OnClickListener() {
-                                           @Override
-                                           public void onClick(View v) {
-                                               Intent intent = new Intent(activity, MovieDetailActivity.class);
-                                               //MovieDetailActivity.setExtras(intent, person);
-
-                                               //TODO Fix shared transition. It has issues with Fresco (maybe replace it to something else).
-/*                                               ActivityOptionsCompat options = ActivityOptionsCompat.
-                                                       makeSceneTransitionAnimation(activity, holder.profile, "profile");
-                                               activity.startActivity(intent, options.toBundle());*/
-                                               activity.startActivity(intent);
-                                           }
-                                       }
-        );
     }
 
     private String createKnownForText(Person person) {

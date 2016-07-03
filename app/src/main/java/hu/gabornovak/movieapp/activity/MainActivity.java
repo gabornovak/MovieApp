@@ -15,6 +15,8 @@ import hu.gabornovak.movieapp.adapter.MainAdapter;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
+    private SearchView searchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,16 +35,40 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        invalidateOptionsMenu();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
+        searchView.setIconifiedByDefault(true);
         searchView.setOnQueryTextListener(this);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.clearFocus();
+        searchView.setQueryHint(getString(R.string.search_hint));
         return true;
+    }
+
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        searchView.setQuery("", false);
+        searchView.setIconified(true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override

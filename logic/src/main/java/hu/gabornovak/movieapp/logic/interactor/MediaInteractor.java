@@ -2,6 +2,7 @@ package hu.gabornovak.movieapp.logic.interactor;
 
 import java.util.List;
 
+import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 import hu.gabornovak.movieapp.logic.entity.TVShow;
 import hu.gabornovak.movieapp.logic.gateway.MediaGateway;
@@ -18,6 +19,12 @@ public class MediaInteractor {
 
     public interface OnTVShowsLoaded {
         void onTVShowsLoaded(List<TVShow> tvShows);
+
+        void onError(String errorMsg);
+    }
+
+    public interface OnMediaLoaded {
+        void onMediaLoaded(List<Media> media);
 
         void onError(String errorMsg);
     }
@@ -42,16 +49,16 @@ public class MediaInteractor {
         });
     }
 
-    public void searchMovies(String searchText, final OnMoviesLoaded onMoviesLoaded) {
-        mediaGateway.searchMovies(searchText, new MediaGateway.OnMoviesLoaded() {
+    public void searchForMedia(String searchText, final OnMediaLoaded onMediaLoaded) {
+        mediaGateway.searchMedia(searchText, new MediaGateway.OnMediaLoaded() {
             @Override
-            public void onSuccess(List<Movie> movies) {
-                onMoviesLoaded.onMoviesLoaded(movies);
+            public void onSuccess(List<Media> media) {
+                onMediaLoaded.onMediaLoaded(media);
             }
 
             @Override
             public void onError(String errorMsg) {
-                onMoviesLoaded.onError(errorMsg);
+                onMediaLoaded.onError(errorMsg);
             }
         });
     }

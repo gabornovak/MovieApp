@@ -71,6 +71,35 @@ public class DefaultJsonParserPlugin implements JsonParserPlugin {
     }
 
     @Override
+    public List<Media> parseMedia(String jsonString) {
+        try {
+            MediaResult result = parseJson(jsonString, MediaResult.class);
+            if (result != null) {
+                List<Media> media = new ArrayList<>();
+                for (JsonMedia jsonMedia : result.results) {
+                    //TODO Add person to response
+                    switch (jsonMedia.mediaType) {
+                        case "movie":
+                            media.add(createMovieFromJsonMedia(jsonMedia));
+                            break;
+                        case "tv":
+                            media.add(createTVShowFromJsonMedia(jsonMedia));
+                            break;
+                        default:
+                            Log.w(getClass().getSimpleName(), "Unknown media type in response! " + jsonMedia.mediaType);
+                            break;
+                    }
+                }
+                return media;
+            }
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    @Override
     public List<TVShow> parseTVShows(String jsonString) {
         try {
             MediaResult result = parseJson(jsonString, MediaResult.class);
@@ -96,12 +125,16 @@ public class DefaultJsonParserPlugin implements JsonParserPlugin {
 
         List<Media> knownFor = new ArrayList<>();
         for (JsonMedia media : jsonPerson.knownFor) {
-            if (media.mediaType.equals("movie")) {
-                knownFor.add(createMovieFromJsonMedia(media));
-            } else if (media.mediaType.equals("tv")) {
-                knownFor.add(createTVShowFromJsonMedia(media));
-            } else {
-                Log.w(getClass().getSimpleName(), "Unkown media type in response! " + media.mediaType);
+            switch (media.mediaType) {
+                case "movie":
+                    knownFor.add(createMovieFromJsonMedia(media));
+                    break;
+                case "tv":
+                    knownFor.add(createTVShowFromJsonMedia(media));
+                    break;
+                default:
+                    Log.w(getClass().getSimpleName(), "Unknown media type in response! " + media.mediaType);
+                    break;
             }
         }
         person.setKnownFor(knownFor);

@@ -3,4 +3,5 @@
     <string name="app_label">Movie app</string>
     <string name="search_text">Search</string>
     <string name="label_known_for">Known for</string>
+    <string name="search_hint">Movie or TV show…</string>
 </resources>

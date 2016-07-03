@@ -36,22 +36,6 @@ public class DefaultMediaGateway implements MediaGateway {
     }
 
     @Override
-    public void searchMovies(String searchText, final OnMoviesLoaded onMediaLoaded) {
-        List<Pair<String, String>> params = createParamsForSearch(searchText);
-        restPlugin.get("search/movie", params, new MovieDbRestPlugin.OnComplete() {
-            @Override
-            public void onSuccess(String data) {
-                onMediaLoaded.onSuccess(jsonParserPlugin.parseMovies(data));
-            }
-
-            @Override
-            public void onError() {
-                onMediaLoaded.onError("An error occurred during download...");
-            }
-        });
-    }
-
-    @Override
     public void loadPopularTVShows(final OnTVShowsLoaded onTVShowsLoaded) {
         restPlugin.get("tv/popular", new MovieDbRestPlugin.OnComplete() {
             @Override
@@ -62,6 +46,22 @@ public class DefaultMediaGateway implements MediaGateway {
             @Override
             public void onError() {
                 onTVShowsLoaded.onError("An error occurred during download...");
+            }
+        });
+    }
+
+    @Override
+    public void searchMedia(String searchText, final OnMediaLoaded onMediaLoaded) {
+        List<Pair<String, String>> params = createParamsForSearch(searchText);
+        restPlugin.get("search/multi", params, new MovieDbRestPlugin.OnComplete() {
+            @Override
+            public void onSuccess(String data) {
+                onMediaLoaded.onSuccess(jsonParserPlugin.parseMedia(data));
+            }
+
+            @Override
+            public void onError() {
+                onMediaLoaded.onError("An error occurred during download...");
             }
         });
     }

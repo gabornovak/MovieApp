@@ -7,7 +7,7 @@ import java.util.List;
 
 import hu.gabornovak.movieapp.adapter.MediaRecyclerViewAdapter;
 import hu.gabornovak.movieapp.logic.Logic;
-import hu.gabornovak.movieapp.logic.entity.Movie;
+import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.interactor.MediaInteractor;
 
 public class MoviesSearchResultFragment extends ListFragment {
@@ -25,13 +25,13 @@ public class MoviesSearchResultFragment extends ListFragment {
     protected void loadList() {
         String searchText = getArguments().getString(ARG_SEARCH_TEXT);
 
-        Logic.getInstance().getMedia().searchMovies(searchText, new MediaInteractor.OnMoviesLoaded() {
+        Logic.getInstance().getMedia().searchForMedia(searchText, new MediaInteractor.OnMediaLoaded() {
             @Override
-            public void onMoviesLoaded(final List<Movie> movies) {
+            public void onMediaLoaded(final List<Media> media) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setAdapter(new MediaRecyclerViewAdapter(getActivity(), movies));
+                        setAdapter(new MediaRecyclerViewAdapter(getActivity(), media));
                         showList();
                     }
                 });
