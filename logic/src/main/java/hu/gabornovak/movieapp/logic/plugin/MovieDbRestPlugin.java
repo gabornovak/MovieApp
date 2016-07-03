@@ -19,7 +19,7 @@ public interface MovieDbRestPlugin {
      * get from the server.
      *
      * @param requestPath Only the path, not the whole url! E.g.: movie/id
-     * @param onComplete onSuccess called if it was finished, onError otherwise
+     * @param onComplete onPeopleLoaded called if it was finished, onError otherwise
      */
     void get(String requestPath, OnComplete onComplete);
 

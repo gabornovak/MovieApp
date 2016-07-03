@@ -3,6 +3,7 @@ package hu.gabornovak.movieapp.logic;
 import android.content.Context;
 
 import hu.gabornovak.movieapp.logic.interactor.MediaInteractor;
+import hu.gabornovak.movieapp.logic.interactor.PersonInteractor;
 
 public class Logic extends AbstractLogic {
     private Context context;
@@ -30,7 +31,12 @@ public class Logic extends AbstractLogic {
     }
 
     @Override
-    protected MediaInteractor createMovies() {
+    protected MediaInteractor createMedia() {
         return new MediaInteractor(getGatewayFactory().getMediaGateway());
+    }
+
+    @Override
+    protected PersonInteractor createPersonInteractor() {
+        return new PersonInteractor(getGatewayFactory().getPersonGateway());
     }
 }

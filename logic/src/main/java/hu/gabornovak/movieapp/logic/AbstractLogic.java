@@ -1,6 +1,7 @@
 package hu.gabornovak.movieapp.logic;
 
 import hu.gabornovak.movieapp.logic.interactor.MediaInteractor;
+import hu.gabornovak.movieapp.logic.interactor.PersonInteractor;
 
 public abstract class AbstractLogic {
     //region Factories
@@ -34,13 +35,26 @@ public abstract class AbstractLogic {
     private LazyInstance<MediaInteractor> movies = new LazyInstance<MediaInteractor>() {
         @Override
         protected MediaInteractor createInstance() {
-            return createMovies();
+            return createMedia();
         }
     };
 
-    protected abstract MediaInteractor createMovies();
+    protected abstract MediaInteractor createMedia();
 
     public MediaInteractor getMedia() {
         return movies.getInstance();
+    }
+
+    private LazyInstance<PersonInteractor> people = new LazyInstance<PersonInteractor>() {
+        @Override
+        protected PersonInteractor createInstance() {
+            return createPersonInteractor();
+        }
+    };
+
+    protected abstract PersonInteractor createPersonInteractor();
+
+    public PersonInteractor getPersonInteractor() {
+        return people.getInstance();
     }
 }
