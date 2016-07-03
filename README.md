@@ -2,6 +2,8 @@
 
 This is an example application of [Uncle Bob's Clean Architecture](https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html) design.
 
+<a href="https://raw.githubusercontent.com/gabornovak/MovieApp/master/doc/MovieTime-1.0-debug.apk"><img src="https://raw.githubusercontent.com/gabornovak/MovieApp/master/doc/download.png" width="150"></a>
+
 ## About the app
 
 This application can show the most popular movies, TV shows, and people to the user.
