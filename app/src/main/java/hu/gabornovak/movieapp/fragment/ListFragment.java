@@ -78,22 +78,26 @@ abstract class ListFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    void showErrorMessage(RequestErrorType errorType) {
-        switch (errorType) {
-            case NO_INTERNET_ERROR:
-                messageText.setText(getString(R.string.no_internet_error_message));
-                break;
-            case PARSE_ERROR:
-                messageText.setText(getString(R.string.parse_error_message));
-                break;
-            default:
-                messageText.setText(getString(R.string.general_error_message));
-                break;
-        }
+    void showErrorMessage(String message) {
+        messageText.setText(message);
         recyclerView.setVisibility(View.GONE);
         progressLayout.setVisibility(View.GONE);
         errorLayout.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    void showErrorMessage(RequestErrorType errorType) {
+        switch (errorType) {
+            case NO_INTERNET_ERROR:
+                showErrorMessage(getString(R.string.no_internet_error_message));
+                break;
+            case PARSE_ERROR:
+                showErrorMessage(getString(R.string.parse_error_message));
+                break;
+            default:
+                showErrorMessage(getString(R.string.general_error_message));
+                break;
+        }
     }
 
     void showList() {

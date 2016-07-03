@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import java.util.List;
 
+import hu.gabornovak.movieapp.R;
 import hu.gabornovak.movieapp.adapter.MediaRecyclerViewAdapter;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Media;
@@ -32,8 +33,12 @@ public class MoviesSearchResultFragment extends ListFragment {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setAdapter(new MediaRecyclerViewAdapter(getActivity(), media));
-                        showList();
+                        if (media != null && media.size() == 0) {
+                            showErrorMessage(getString(R.string.no_result_error_message));
+                        } else {
+                            setAdapter(new MediaRecyclerViewAdapter(getActivity(), media));
+                            showList();
+                        }
                     }
                 });
             }
