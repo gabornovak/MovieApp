@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         if (viewPager != null) {
-            viewPager.setAdapter(new MainAdapter(getSupportFragmentManager()));
+            viewPager.setAdapter(new MainAdapter(this, getSupportFragmentManager()));
         }
         if (tabLayout != null) {
             tabLayout.setupWithViewPager(viewPager);

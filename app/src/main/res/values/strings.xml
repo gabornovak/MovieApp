@@ -4,4 +4,12 @@
     <string name="search_text">Search</string>
     <string name="label_known_for">Known for</string>
     <string name="search_hint">Movie or TV show…</string>
+    <string name="no_internet_error_message">No internet connection detected...</string>
+    <string name="parse_error_message">Something went wrong during the data parsing...</string>
+    <string name="general_error_message">Something went wrong...</string>
+    <string name="tap_to_retry">Tap to retry</string>
+    <string name="movies_tab_title">Movies</string>
+    <string name="tv_shows_tab_title">TV Shows</string>
+    <string name="people_tab_title">People</string>
+    <string name="unkown_tab_title">Unknown</string>
 </resources>

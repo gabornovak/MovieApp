@@ -1,6 +1,7 @@
 package hu.gabornovak.movieapp.logic;
 
 
+import hu.gabornovak.movieapp.logic.plugin.ConnectionPlugin;
 import hu.gabornovak.movieapp.logic.plugin.ImagePathResolverPlugin;
 import hu.gabornovak.movieapp.logic.plugin.JsonParserPlugin;
 import hu.gabornovak.movieapp.logic.plugin.PreferenceStorePlugin;
@@ -13,6 +14,13 @@ public abstract class AbstractPluginFactory implements PluginFactory {
         @Override
         protected MovieDbRestPlugin createInstance() {
             return createRestPlugin();
+        }
+    };
+
+    private LazyInstance<ConnectionPlugin> connectionPlugin= new LazyInstance<ConnectionPlugin>() {
+        @Override
+        protected ConnectionPlugin createInstance() {
+            return createConnectionPlugin();
         }
     };
 
@@ -65,5 +73,13 @@ public abstract class AbstractPluginFactory implements PluginFactory {
     }
 
     protected abstract ImagePathResolverPlugin createImagePathResolverPlugin();
+
+    @Override
+    public ConnectionPlugin getConnectionPlugin() {
+        return connectionPlugin.getInstance();
+    }
+
+    protected abstract ConnectionPlugin createConnectionPlugin();
+
 
 }

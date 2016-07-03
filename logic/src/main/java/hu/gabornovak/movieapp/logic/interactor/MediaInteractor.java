@@ -6,6 +6,7 @@ import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 import hu.gabornovak.movieapp.logic.entity.TVShow;
 import hu.gabornovak.movieapp.logic.gateway.MediaGateway;
+import hu.gabornovak.movieapp.logic.utils.RequestErrorType;
 
 /**
  * Created by gnovak on 7/2/2016.
@@ -14,19 +15,19 @@ public class MediaInteractor {
     public interface OnMoviesLoaded {
         void onMoviesLoaded(List<Movie> movies);
 
-        void onError(String errorMsg);
+        void onError(RequestErrorType errorType);
     }
 
     public interface OnTVShowsLoaded {
         void onTVShowsLoaded(List<TVShow> tvShows);
 
-        void onError(String errorMsg);
+        void onError(RequestErrorType errorType);
     }
 
     public interface OnMediaLoaded {
         void onMediaLoaded(List<Media> media);
 
-        void onError(String errorMsg);
+        void onError(RequestErrorType errorType);
     }
 
     private MediaGateway mediaGateway;
@@ -43,8 +44,8 @@ public class MediaInteractor {
             }
 
             @Override
-            public void onError(String errorMsg) {
-                onMoviesLoaded.onError(errorMsg);
+            public void onError(RequestErrorType errorType) {
+                onMoviesLoaded.onError(errorType);
             }
         });
     }
@@ -57,8 +58,8 @@ public class MediaInteractor {
             }
 
             @Override
-            public void onError(String errorMsg) {
-                onMediaLoaded.onError(errorMsg);
+            public void onError(RequestErrorType errorType) {
+                onMediaLoaded.onError(errorType);
             }
         });
     }
@@ -71,8 +72,8 @@ public class MediaInteractor {
             }
 
             @Override
-            public void onError(String errorMsg) {
-                onTVShowsLoaded.onError(errorMsg);
+            public void onError(RequestErrorType errorType) {
+                onTVShowsLoaded.onError(errorType);
             }
         });
     }

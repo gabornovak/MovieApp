@@ -15,28 +15,81 @@
             android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/list"
+                android:id="@+id/grid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/main_background"
-                android:visibility="gone"
-                app:layoutManager="GridLayoutManager" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:visibility="gone" />
         </RelativeLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <View
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_color_height"
+            android:background="@color/colorPrimary" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/top_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_color_height"
+            android:alpha="0.2"
+            android:background="@color/colorPrimary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="12dp"
+                android:drawableTop="@drawable/ic_warning"
+                android:gravity="center"
+                android:textColor="@color/colorTextSecondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/tap_to_retry"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="@dimen/tap_to_retry_button_text_size" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:alpha="0.2"
+            android:src="@drawable/error_bg" />
+    </LinearLayout>
 
 </RelativeLayout>

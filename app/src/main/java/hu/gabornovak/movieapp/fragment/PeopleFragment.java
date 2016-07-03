@@ -6,6 +6,7 @@ import hu.gabornovak.movieapp.adapter.PeopleRecyclerViewAdapter;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Person;
 import hu.gabornovak.movieapp.logic.interactor.PersonInteractor;
+import hu.gabornovak.movieapp.logic.utils.RequestErrorType;
 
 public class PeopleFragment extends ListFragment {
     public static PeopleFragment newInstance() {
@@ -27,11 +28,11 @@ public class PeopleFragment extends ListFragment {
             }
 
             @Override
-            public void onError(final String errorMsg) {
+            public void onError(final RequestErrorType errorType) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        showErrorMessage(errorMsg);
+                        showErrorMessage(errorType);
                     }
                 });
             }

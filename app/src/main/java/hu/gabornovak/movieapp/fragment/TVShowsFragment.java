@@ -6,6 +6,7 @@ import hu.gabornovak.movieapp.adapter.MediaRecyclerViewAdapter;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.TVShow;
 import hu.gabornovak.movieapp.logic.interactor.MediaInteractor;
+import hu.gabornovak.movieapp.logic.utils.RequestErrorType;
 
 public class TVShowsFragment extends ListFragment {
     public static TVShowsFragment newInstance() {
@@ -27,11 +28,11 @@ public class TVShowsFragment extends ListFragment {
             }
 
             @Override
-            public void onError(final String errorMsg) {
+            public void onError(final RequestErrorType errorType) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        showErrorMessage(errorMsg);
+                        showErrorMessage(errorType);
                     }
                 });
             }

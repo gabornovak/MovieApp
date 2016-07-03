@@ -2,6 +2,8 @@ package hu.gabornovak.movieapp.logic;
 
 import android.content.Context;
 
+import hu.gabornovak.movieapp.logic.plugin.ConnectionPlugin;
+import hu.gabornovak.movieapp.logic.plugin.DefaultConnectionPlugin;
 import hu.gabornovak.movieapp.logic.plugin.DefaultImagePathResolverPlugin;
 import hu.gabornovak.movieapp.logic.plugin.DefaultJsonParserPlugin;
 import hu.gabornovak.movieapp.logic.plugin.DefaultMovieDbRestPlugin;
@@ -36,5 +38,10 @@ public class DefaultPluginFactory extends AbstractPluginFactory {
     @Override
     protected ImagePathResolverPlugin createImagePathResolverPlugin() {
         return new DefaultImagePathResolverPlugin();
+    }
+
+    @Override
+    protected ConnectionPlugin createConnectionPlugin() {
+        return new DefaultConnectionPlugin(context);
     }
 }

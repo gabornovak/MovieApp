@@ -36,19 +36,12 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
 
         holder.name.setText(person.getName());
         holder.profile.setImageURI(Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getProfileUrl(person));
-        holder.knownFor.setText(createKnownForText(person));
-    }
 
-    private String createKnownForText(Person person) {
-        StringBuilder knowFor = new StringBuilder(activity.getString(R.string.label_known_for));
-        knowFor.append(" ");
-        for (int i = 0; i < person.getKnownFor().size(); i++) {
-            knowFor.append(person.getKnownFor().get(i).getTitle());
-            if (i != person.getKnownFor().size() - 1) {
-                knowFor.append(", ");
-            }
+        if (position > 1) {
+            holder.topBackground.setVisibility(View.GONE);
+        } else {
+            holder.topBackground.setVisibility(View.VISIBLE);
         }
-        return knowFor.toString();
     }
 
     @Override
@@ -56,17 +49,17 @@ public class PeopleRecyclerViewAdapter extends RecyclerView.Adapter<PeopleRecycl
         return people.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         final View view;
         final SimpleDraweeView profile;
         final TextView name;
-        final TextView knownFor;
+        final View topBackground;
 
         ViewHolder(View view) {
             super(view);
             this.view = view;
+            topBackground = view.findViewById(R.id.top_background);
             name = (TextView) view.findViewById(R.id.name);
-            knownFor = (TextView) view.findViewById(R.id.knownfor);
             profile = (SimpleDraweeView) view.findViewById(R.id.profile);
         }
     }

@@ -2,7 +2,6 @@ package hu.gabornovak.movieapp.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,6 @@ import java.util.Locale;
 import hu.gabornovak.movieapp.R;
 import hu.gabornovak.movieapp.activity.MovieDetailActivity;
 import hu.gabornovak.movieapp.logic.Logic;
-import hu.gabornovak.movieapp.logic.entity.Genre;
 import hu.gabornovak.movieapp.logic.entity.Media;
 
 public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<MediaRecyclerViewAdapter.ViewHolder> {
@@ -68,38 +66,6 @@ public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<MediaRecycler
         } else {
             holder.topBackground.setVisibility(View.VISIBLE);
         }
-
-        /*Logic.getInstance().getGatewayFactory().getGenreGateway().loadGenres(media, new GenreGateway.OnGenresLoaded() {
-            @Override
-            public void onSuccess(Media media, final List<Genre> genres) {
-                if (activity != null) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            holder.genres.setText(buildGenresString(genres));
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onError(String errorMsg) {
-                //TODO Handle error
-                Log.e("Adapter", "Error occurred");
-            }
-        });*/
-    }
-
-    @NonNull
-    private String buildGenresString(List<Genre> genres) {
-        StringBuilder genresString = new StringBuilder();
-        for (int i = 0; i < genres.size(); i++) {
-            genresString.append(genres.get(i).getName());
-            if (i != genres.size() - 1) {
-                genresString.append(", ");
-            }
-        }
-        return genresString.toString();
     }
 
     @Override
@@ -107,7 +73,7 @@ public class MediaRecyclerViewAdapter extends RecyclerView.Adapter<MediaRecycler
         return media.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         final View view;
         final View topBackground;
         final SimpleDraweeView poster;

@@ -6,6 +6,7 @@ import java.util.List;
 import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.entity.Movie;
 import hu.gabornovak.movieapp.logic.entity.TVShow;
+import hu.gabornovak.movieapp.logic.utils.RequestErrorType;
 
 /**
  * Created by gnovak on 7/2/2016.
@@ -13,17 +14,17 @@ import hu.gabornovak.movieapp.logic.entity.TVShow;
 public interface MediaGateway {
     interface OnMoviesLoaded {
         void onSuccess(List<Movie> movies);
-        void onError(String errorMsg);
+        void onError(RequestErrorType errorType);
     }
 
     interface OnTVShowsLoaded {
         void onSuccess(List<TVShow> tvShows);
-        void onError(String errorMsg);
+        void onError(RequestErrorType errorType);
     }
 
     interface OnMediaLoaded {
         void onSuccess(List<Media> media);
-        void onError(String errorMsg);
+        void onError(RequestErrorType errorType);
     }
 
     void loadPopularMovies(OnMoviesLoaded onMoviesLoaded);

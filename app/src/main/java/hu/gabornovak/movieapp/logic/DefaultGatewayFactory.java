@@ -19,16 +19,16 @@ public class DefaultGatewayFactory extends AbstractGatewayFactory {
 
     @Override
     public MediaGateway createMovieGateway() {
-        return new DefaultMediaGateway(Logic.getInstance().getPluginFactory().getRestPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
+        return new DefaultMediaGateway(Logic.getInstance().getPluginFactory().getRestPlugin(),Logic.getInstance().getPluginFactory().getConnectionPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
     }
 
     @Override
     public GenreGateway createGenreGateway() {
-        return new DefaultGenreGateway(Logic.getInstance().getPluginFactory().getRestPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
+        return new DefaultGenreGateway(Logic.getInstance().getPluginFactory().getRestPlugin(),Logic.getInstance().getPluginFactory().getConnectionPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
     }
 
     @Override
     public PersonGateway createPersonGateway() {
-        return new DefaultPersonGateway(Logic.getInstance().getPluginFactory().getRestPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
+        return new DefaultPersonGateway(Logic.getInstance().getPluginFactory().getRestPlugin(),Logic.getInstance().getPluginFactory().getConnectionPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
     }
 }

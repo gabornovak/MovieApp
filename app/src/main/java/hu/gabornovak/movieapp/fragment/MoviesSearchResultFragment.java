@@ -9,6 +9,7 @@ import hu.gabornovak.movieapp.adapter.MediaRecyclerViewAdapter;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Media;
 import hu.gabornovak.movieapp.logic.interactor.MediaInteractor;
+import hu.gabornovak.movieapp.logic.utils.RequestErrorType;
 
 public class MoviesSearchResultFragment extends ListFragment {
     private static final String ARG_SEARCH_TEXT = "search text";
@@ -38,11 +39,11 @@ public class MoviesSearchResultFragment extends ListFragment {
             }
 
             @Override
-            public void onError(final String errorMsg) {
+            public void onError(final RequestErrorType errorType) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        showErrorMessage(errorMsg);
+                        showErrorMessage(errorType);
                     }
                 });
             }

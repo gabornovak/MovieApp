@@ -7,5 +7,7 @@
     <dimen name="movie_poster_height">200dp</dimen>
     <dimen name="movie_poster_width">138dp</dimen>
     <dimen name="list_item_text_padding">10dp</dimen>
+    <dimen name="top_color_height">100dp</dimen>
+    <dimen name="tap_to_retry_button_text_size">10sp</dimen>
 
 </resources>

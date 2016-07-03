@@ -4,6 +4,7 @@ import java.util.List;
 
 import hu.gabornovak.movieapp.logic.entity.Person;
 import hu.gabornovak.movieapp.logic.gateway.PersonGateway;
+import hu.gabornovak.movieapp.logic.utils.RequestErrorType;
 
 /**
  * Created by gnovak on 7/2/2016.
@@ -11,7 +12,7 @@ import hu.gabornovak.movieapp.logic.gateway.PersonGateway;
 public class PersonInteractor {
     public interface OnPeopleLoaded {
         void onPeopleLoaded(List<Person> people);
-        void onError(String errorMsg);
+        void onError(RequestErrorType errorType);
     }
 
     private PersonGateway personGateway;
@@ -28,8 +29,8 @@ public class PersonInteractor {
             }
 
             @Override
-            public void onError(String errorMsg) {
-                onMoviesLoaded.onError(errorMsg);
+            public void onError(RequestErrorType errorType) {
+                onMoviesLoaded.onError(errorType);
             }
         });
     }

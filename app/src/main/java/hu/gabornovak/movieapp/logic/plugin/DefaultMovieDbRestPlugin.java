@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 import hu.gabornovak.movieapp.logic.utils.Pair;
+import hu.gabornovak.movieapp.logic.utils.RequestErrorType;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -56,7 +57,6 @@ public class DefaultMovieDbRestPlugin implements MovieDbRestPlugin {
     }
 
     String createUrl(String requestPath) {
-        //Create url like this: https://api.themoviedb.org/3/person/popular?api_key=0a08e38b874d0aa2d426ffc04357069d
         StringBuilder url = new StringBuilder();
         if (USE_SSL) {
             url.append("https://");
@@ -87,7 +87,7 @@ public class DefaultMovieDbRestPlugin implements MovieDbRestPlugin {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                onComplete.onError();
+                onComplete.onError(RequestErrorType.NETWORK_ERROR);
             }
 
             @Override
@@ -95,8 +95,7 @@ public class DefaultMovieDbRestPlugin implements MovieDbRestPlugin {
                 if (response.isSuccessful()) {
                     onComplete.onSuccess(response.body().string());
                 } else {
-                    //TODO add proper error management (error codes and messages)
-                    onComplete.onError();
+                    onComplete.onError(RequestErrorType.NETWORK_ERROR);
                 }
             }
         });

@@ -3,6 +3,7 @@ package hu.gabornovak.movieapp.logic.plugin;
 import java.util.List;
 
 import hu.gabornovak.movieapp.logic.utils.Pair;
+import hu.gabornovak.movieapp.logic.utils.RequestErrorType;
 
 
 /**
@@ -12,7 +13,7 @@ import hu.gabornovak.movieapp.logic.utils.Pair;
 public interface MovieDbRestPlugin {
     interface OnComplete {
         void onSuccess(String data);
-        void onError();
+        void onError(RequestErrorType errorType);
     }
 
     /**
