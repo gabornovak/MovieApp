@@ -39,17 +39,16 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Movie movie = movies.get(position);
-        holder.movie = movie;
 
         holder.title.setText(movie.getTitle());
         holder.overview.setText(movie.getOverview());
-        holder.releaseDate.setText(movie.getRelease_date());
+        holder.releaseDate.setText(movie.getDate());
 
-        holder.rating.setText(String.format(Locale.getDefault(), "%.1f", movie.getVote_average()));
+        holder.rating.setText(String.format(Locale.getDefault(), "%.1f", movie.getRating()));
         holder.ratingProgress.setPivotX(0);
-        holder.ratingProgress.setScaleX(movie.getVote_average() / 10f);
+        holder.ratingProgress.setScaleX(movie.getRating() / 10f);
 
-        holder.poster.setImageURI(Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMoviePosterUrl(movie));
+        holder.poster.setImageURI(Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMediaPosterUrl(movie));
 
         holder.view.setOnClickListener(new View.OnClickListener() {
                                            @Override
@@ -105,18 +104,16 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public Movie movie;
+        final View view;
+        final SimpleDraweeView poster;
+        final TextView title;
+        final TextView overview;
+        final TextView rating;
+        final View ratingProgress;
+        final TextView releaseDate;
+        final TextView genres;
 
-        public final View view;
-        public final SimpleDraweeView poster;
-        public final TextView title;
-        public final TextView overview;
-        public final TextView rating;
-        public final View ratingProgress;
-        public final TextView releaseDate;
-        public final TextView genres;
-
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             this.view = view;
             title = (TextView) view.findViewById(R.id.title);

@@ -3,26 +3,26 @@ package hu.gabornovak.movieapp.logic.interactor;
 import java.util.List;
 
 import hu.gabornovak.movieapp.logic.entity.Movie;
-import hu.gabornovak.movieapp.logic.gateway.MovieGateway;
+import hu.gabornovak.movieapp.logic.gateway.MediaGateway;
 
 /**
  * Created by gnovak on 7/2/2016.
  */
-public class Movies {
+public class MediaInteractor {
     public interface OnMoviesLoaded {
         void onMoviesLoaded(List<Movie> movies);
 
         void onError(String errorMsg);
     }
 
-    private MovieGateway movieGateway;
+    private MediaGateway mediaGateway;
 
-    public Movies(MovieGateway movieGateway) {
-        this.movieGateway = movieGateway;
+    public MediaInteractor(MediaGateway mediaGateway) {
+        this.mediaGateway = mediaGateway;
     }
 
     public void getPopularMovies(final OnMoviesLoaded onMoviesLoaded) {
-        movieGateway.loadPopularMovies(new MovieGateway.OnMoviesLoaded() {
+        mediaGateway.loadPopularMovies(new MediaGateway.OnMoviesLoaded() {
             @Override
             public void onSuccess(List<Movie> movies) {
                 onMoviesLoaded.onMoviesLoaded(movies);
@@ -36,7 +36,7 @@ public class Movies {
     }
 
     public void searchMovies(String searchText, final OnMoviesLoaded onMoviesLoaded) {
-        movieGateway.searchMovies(searchText, new MovieGateway.OnMoviesLoaded() {
+        mediaGateway.searchMovies(searchText, new MediaGateway.OnMoviesLoaded() {
             @Override
             public void onSuccess(List<Movie> movies) {
                 onMoviesLoaded.onMoviesLoaded(movies);

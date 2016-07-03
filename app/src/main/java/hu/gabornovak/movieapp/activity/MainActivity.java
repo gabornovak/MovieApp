@@ -24,8 +24,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
-        viewPager.setAdapter(new MainAdapter(getSupportFragmentManager()));
-        tabLayout.setupWithViewPager(viewPager);
+        if (viewPager != null) {
+            viewPager.setAdapter(new MainAdapter(getSupportFragmentManager()));
+        }
+        if (tabLayout != null) {
+            tabLayout.setupWithViewPager(viewPager);
+        }
     }
 
     @Override
@@ -38,19 +42,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         searchView.setOnQueryTextListener(this);
-
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        // User pressed the search button
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        // User changed the text
         return false;
     }
 }

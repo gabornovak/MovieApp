@@ -11,42 +11,42 @@ import hu.gabornovak.movieapp.logic.utils.Pair;
 /**
  * Created by gnovak on 7/2/2016.
  */
-public class DefaultMovieGateway implements MovieGateway {
+public class DefaultMediaGateway implements MediaGateway {
     private MovieDbRestPlugin restPlugin;
     private JsonParserPlugin jsonParserPlugin;
 
-    public DefaultMovieGateway(MovieDbRestPlugin restPlugin, JsonParserPlugin jsonParserPlugin) {
+    public DefaultMediaGateway(MovieDbRestPlugin restPlugin, JsonParserPlugin jsonParserPlugin) {
         this.restPlugin = restPlugin;
         this.jsonParserPlugin = jsonParserPlugin;
     }
 
     @Override
-    public void loadPopularMovies(final OnMoviesLoaded onMoviesLoaded) {
+    public void loadPopularMovies(final OnMoviesLoaded onMediaLoaded) {
         restPlugin.get("movie/popular", new MovieDbRestPlugin.OnComplete() {
             @Override
             public void onSuccess(String data) {
-                onMoviesLoaded.onSuccess(jsonParserPlugin.parseMovies(data));
+                onMediaLoaded.onSuccess(jsonParserPlugin.parseMovies(data));
             }
 
             @Override
             public void onError() {
-                onMoviesLoaded.onError("An error occurred during download...");
+                onMediaLoaded.onError("An error occurred during download...");
             }
         });
     }
 
     @Override
-    public void searchMovies(String searchText, final OnMoviesLoaded onMoviesLoaded) {
+    public void searchMovies(String searchText, final OnMoviesLoaded onMediaLoaded) {
         List<Pair<String, String>> params = createParamsForSearch(searchText);
         restPlugin.get("search/movie", params, new MovieDbRestPlugin.OnComplete() {
             @Override
             public void onSuccess(String data) {
-                onMoviesLoaded.onSuccess(jsonParserPlugin.parseMovies(data));
+                onMediaLoaded.onSuccess(jsonParserPlugin.parseMovies(data));
             }
 
             @Override
             public void onError() {
-                onMoviesLoaded.onError("An error occurred during download...");
+                onMediaLoaded.onError("An error occurred during download...");
             }
         });
     }

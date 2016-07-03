@@ -3,11 +3,9 @@ package hu.gabornovak.movieapp.logic;
 import android.content.Context;
 
 import hu.gabornovak.movieapp.logic.gateway.DefaultGenreGateway;
-import hu.gabornovak.movieapp.logic.gateway.DefaultMovieGateway;
-import hu.gabornovak.movieapp.logic.gateway.DefaultTVShowGateway;
+import hu.gabornovak.movieapp.logic.gateway.DefaultMediaGateway;
 import hu.gabornovak.movieapp.logic.gateway.GenreGateway;
-import hu.gabornovak.movieapp.logic.gateway.MovieGateway;
-import hu.gabornovak.movieapp.logic.gateway.TVShowGateway;
+import hu.gabornovak.movieapp.logic.gateway.MediaGateway;
 
 
 public class DefaultGatewayFactory extends AbstractGatewayFactory {
@@ -18,15 +16,9 @@ public class DefaultGatewayFactory extends AbstractGatewayFactory {
     }
 
     @Override
-    public MovieGateway createMovieGateway() {
-        return new DefaultMovieGateway(Logic.getInstance().getPluginFactory().getRestPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
+    public MediaGateway createMovieGateway() {
+        return new DefaultMediaGateway(Logic.getInstance().getPluginFactory().getRestPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
     }
-
-    @Override
-    public TVShowGateway createTVShowGateway() {
-        return new DefaultTVShowGateway(Logic.getInstance().getPluginFactory().getRestPlugin(), Logic.getInstance().getPluginFactory().getJsonParserPlugin());
-    }
-
 
     @Override
     public GenreGateway createGenreGateway() {

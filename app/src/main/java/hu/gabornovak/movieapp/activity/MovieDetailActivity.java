@@ -24,12 +24,12 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         Movie movie = (Movie) getIntent().getExtras().getSerializable(EXTRA_MOVIE);
         if (movie != null) {
-            String url = Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMoviePosterUrl(movie);
+            String url = Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMediaPosterUrl(movie);
             posterView.setImageURI(url);
         }
     }
 
     public static void setExtras(Intent intent, Movie movie) {
-        intent.putExtra(EXTRA_MOVIE, movie);
+        //intent.putExtra(EXTRA_MOVIE, movie);
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import hu.gabornovak.movieapp.adapter.MoviesRecyclerViewAdapter;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.Movie;
-import hu.gabornovak.movieapp.logic.interactor.Movies;
+import hu.gabornovak.movieapp.logic.interactor.MediaInteractor;
 
 public class MoviesFragment extends ListFragment {
     public static MoviesFragment newInstance() {
@@ -14,7 +14,7 @@ public class MoviesFragment extends ListFragment {
 
     @Override
     protected void loadList() {
-        Logic.getInstance().getMovies().getPopularMovies(new Movies.OnMoviesLoaded() {
+        Logic.getInstance().getMovies().getPopularMovies(new MediaInteractor.OnMoviesLoaded() {
             @Override
             public void onMoviesLoaded(final List<Movie> movies) {
                 runOnUiThread(new Runnable() {

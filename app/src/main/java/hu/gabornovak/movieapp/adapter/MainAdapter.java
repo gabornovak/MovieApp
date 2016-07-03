@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import hu.gabornovak.movieapp.fragment.MoviesFragment;
 
 /**
- * Contains the tree required tabs (Movies, TV Shows, People).
+ * Contains the tree required tabs (MediaInteractor, TV Shows, People).
  * <p>
  * Created by gnovak on 7/2/2016.
  */
@@ -26,7 +26,7 @@ public class MainAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Movies";
+                return "MediaInteractor";
             case 1:
                 return "TV Shows";
             case 2:

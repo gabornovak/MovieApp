@@ -1,20 +1,19 @@
 package hu.gabornovak.movieapp.logic;
 
 import hu.gabornovak.movieapp.logic.gateway.GenreGateway;
-import hu.gabornovak.movieapp.logic.gateway.MovieGateway;
-import hu.gabornovak.movieapp.logic.gateway.TVShowGateway;
+import hu.gabornovak.movieapp.logic.gateway.MediaGateway;
 
 public abstract class AbstractGatewayFactory implements GatewayFactory {
-    private LazyInstance<MovieGateway> movieGateway = new LazyInstance<MovieGateway>() {
+    private LazyInstance<MediaGateway> movieGateway = new LazyInstance<MediaGateway>() {
         @Override
-        protected MovieGateway createInstance() {
+        protected MediaGateway createInstance() {
             return createMovieGateway();
         }
     };
 
-    public abstract MovieGateway createMovieGateway();
+    public abstract MediaGateway createMovieGateway();
 
-    public MovieGateway getMovieGateway() {
+    public MediaGateway getMediaGateway() {
         return movieGateway.getInstance();
     }
 
@@ -29,19 +28,6 @@ public abstract class AbstractGatewayFactory implements GatewayFactory {
 
     public GenreGateway getGenreGateway() {
         return genreGateway.getInstance();
-    }
-
-    private LazyInstance<TVShowGateway> tvShowGateway = new LazyInstance<TVShowGateway>() {
-        @Override
-        protected TVShowGateway createInstance() {
-            return createTVShowGateway();
-        }
-    };
-
-    public abstract TVShowGateway createTVShowGateway();
-
-    public TVShowGateway getTVShowGateway() {
-        return tvShowGateway.getInstance();
     }
 
 }

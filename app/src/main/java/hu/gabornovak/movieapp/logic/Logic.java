@@ -2,8 +2,7 @@ package hu.gabornovak.movieapp.logic;
 
 import android.content.Context;
 
-import hu.gabornovak.movieapp.logic.interactor.Movies;
-import hu.gabornovak.movieapp.logic.interactor.TVShows;
+import hu.gabornovak.movieapp.logic.interactor.MediaInteractor;
 
 public class Logic extends AbstractLogic {
     private Context context;
@@ -31,13 +30,7 @@ public class Logic extends AbstractLogic {
     }
 
     @Override
-    protected Movies createMovies() {
-        return new Movies(getGatewayFactory().getMovieGateway());
+    protected MediaInteractor createMovies() {
+        return new MediaInteractor(getGatewayFactory().getMediaGateway());
     }
-
-    @Override
-    protected TVShows createTVShows() {
-        return new TVShows(getGatewayFactory().getTVShowGateway());
-    }
-
 }

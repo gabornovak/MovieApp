@@ -1,6 +1,6 @@
 package hu.gabornovak.movieapp.logic.plugin;
 
-import hu.gabornovak.movieapp.logic.entity.Movie;
+import hu.gabornovak.movieapp.logic.entity.Media;
 
 /**
  * Created by gnovak on 7/2/2016.
@@ -12,15 +12,15 @@ public class DefaultImagePathResolverPlugin implements ImagePathResolverPlugin {
     private static final String SIZE = "w300";
 
     @Override
-    public String getMoviePosterUrl(Movie movie) {
-        if (movie == null) {
+    public String getMediaPosterUrl(Media media) {
+        if (media == null) {
             return null;
         }
         String baseUrl = createBaseUrl();
-        if (movie.getPoster_path() == null) {
+        if (media.getPosterPath() == null) {
             return baseUrl;
         }
-        return baseUrl + movie.getPoster_path();
+        return baseUrl + media.getPosterPath();
     }
 
     String createBaseUrl() {

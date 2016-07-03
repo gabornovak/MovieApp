@@ -54,7 +54,7 @@ public class DefaultGenreGateway implements GenreGateway {
 
     private void loadGenresFromCache(Movie movie, OnGenresLoaded onGenresLoaded) {
         List<Genre> genres = new ArrayList<>();
-        for (int genreId : movie.getGenre_ids()) {
+        for (int genreId : movie.getGenreIds()) {
             Genre genre = movieGenresCache.get(genreId);
             if (genre != null) {
                 genres.add(genre);
