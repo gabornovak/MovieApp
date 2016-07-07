@@ -1,6 +1,7 @@
 package hu.gabornovak.movieapp.activity;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 import hu.gabornovak.movieapp.R;
+import hu.gabornovak.movieapp.databinding.ActivityMediaDetailBinding;
 import hu.gabornovak.movieapp.logic.Logic;
 import hu.gabornovak.movieapp.logic.entity.DetailedMovie;
 import hu.gabornovak.movieapp.logic.entity.DetailedTVShow;
@@ -54,7 +56,7 @@ public class MediaDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_media_detail);
+        ActivityMediaDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_media_detail);
 
         loadViews();
 
@@ -64,6 +66,8 @@ public class MediaDetailActivity extends AppCompatActivity {
         Media media = (Media) getIntent().getExtras().getSerializable(EXTRA_MEDIA);
 
         if (media != null) {
+            binding.setMedia(media);
+
             String url = Logic.getInstance().getPluginFactory().getImagePathResolverPlugin().getMediaPosterUrl(media);
             posterView.setImageURI(url);
 
@@ -253,11 +257,6 @@ public class MediaDetailActivity extends AppCompatActivity {
         website.setVisibility(View.GONE);
         tvShowDetailsLayout.setVisibility(View.GONE);
 
-        //Set init information
-        title.setText(media.getTitle());
-        rating.setText(String.format(Locale.getDefault(), "%.1f / 10", media.getRating()));
-        overview.setText(media.getOverview());
-        releaseDate.setText(media.getDate());
     }
 
     private void setupTitleBar() {
@@ -274,12 +273,8 @@ public class MediaDetailActivity extends AppCompatActivity {
         tagline = (TextView) findViewById(R.id.tagline);
         imdb = (TextView) findViewById(R.id.imdb);
         website = (TextView) findViewById(R.id.website);
-        title = (TextView) findViewById(R.id.title);
         playTime = (TextView) findViewById(R.id.playTime);
         genres = (TextView) findViewById(R.id.genres);
-        rating = (TextView) findViewById(R.id.rating);
-        overview = (TextView) findViewById(R.id.overview);
-        releaseDate = (TextView) findViewById(R.id.releaseDate);
         seasons = (TextView) findViewById(R.id.seasons);
         tvShowDetailsLayout = findViewById(R.id.show_details);
     }
